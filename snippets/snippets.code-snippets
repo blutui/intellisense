@@ -1,0 +1,45 @@
+{
+    "for-collection": {
+    "prefix": "!for-collections",
+    "body": [
+      "{% for ${1:entry} in collection.entries|sort_by('sort-order') %}",
+      "",
+      "{% endfor %} "
+    ],
+    "description": "for-collection"
+  },
+  "The apply tag allows you to apply Canvas filters on a block of template data": {
+    "prefix": "!apply",
+    "body": [
+      "{% apply ${1:upper} %}",
+      "  $0",
+      "{% endapply %}"
+    ],
+    "description": "The apply tag allows you to apply Canvas filters on a block of template data"
+  },
+  "The do tag works exactly like the regular variable expression ({{ ... }}) just that it doesnt print anything:": {
+    "prefix": "!do",
+    "body": [
+      "{% do ${1:1} + 2 %}"
+    ],
+    "description": "The do tag works exactly like the regular variable expression ({{ ... }}) just that it doesnt print anything:"
+  },
+  "The if statement in Canvas is comparable with the if statements of many popular languages.": {
+    "prefix": "!if",
+    "body": [
+      "{% if ${1:item} == true %}",
+      " $0",
+      "{% endif %}"
+    ],
+    "description": "The if statement in Canvas is comparable with the if statements of many popular languages."
+  },
+  "Loop over each item in a sequence. ": {
+    "prefix": "!for",
+    "body": [
+      "{% for ${1:item} in items %}",
+      "     $0",
+      "{% endfor %}"
+    ],
+    "description": "Loop over each item in a sequence. "
+  }
+}

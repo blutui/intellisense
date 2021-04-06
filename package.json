@@ -1,0 +1,25 @@
+{
+    "name": "blutuisnippets",
+    "displayName": "blutuisnippets",
+    "description": "",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.55.0"
+    },
+    "icon": "icon.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/blutui/intellisense.git"
+      },
+    "categories": [
+        "Snippets"
+    ],
+    "contributes": {
+        "snippets": [
+            {
+                "language": "html",
+                "path": "./snippets/snippets.code-snippets"
+            }
+        ]
+    }
+}

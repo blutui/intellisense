@@ -1,0 +1,8 @@
+{
+  "name": "Blutui",
+  "scopeName": "blutui.injection",
+  "injectionSelector": "L:text.html -meta.embedded -comment, text.html.markdown -comment",
+  "fileTypes": [
+    "html"
+  ]
+}

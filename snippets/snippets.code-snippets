@@ -9,7 +9,7 @@
     "description": "for-collection"
   },
   "The apply tag allows you to apply Canvas filters on a block of template data": {
-    "prefix": "!apply",
+    "prefix": ["!apply", "{% apply %}", "apply"],
     "body": [
       "{% apply ${1:upper} %}",
       "  $0",
@@ -18,14 +18,14 @@
     "description": "The apply tag allows you to apply Canvas filters on a block of template data"
   },
   "The do tag works exactly like the regular variable expression ({{ ... }}) just that it doesnt print anything:": {
-    "prefix": "!do",
+    "prefix": ["!do", "{% do %}", "do"],
     "body": [
-      "{% do ${1:1} + 2 %}"
+      "{% do ${1:1} + ${2:2} %}"
     ],
     "description": "The do tag works exactly like the regular variable expression ({{ ... }}) just that it doesnt print anything:"
   },
   "The if statement in Canvas is comparable with the if statements of many popular languages.": {
-    "prefix": "!if",
+    "prefix": ["!if", "{% if %}", "if"],
     "body": [
       "{% if ${1:item} == true %}",
       " $0",
@@ -34,12 +34,36 @@
     "description": "The if statement in Canvas is comparable with the if statements of many popular languages."
   },
   "Loop over each item in a sequence. ": {
-    "prefix": "!for",
+    "prefix": ["!for", "{% for %}", "for"],
     "body": [
       "{% for ${1:item} in items %}",
       "     $0",
       "{% endfor %}"
     ],
     "description": "Loop over each item in a sequence. "
+  },
+  "Whether automatic escaping is enabled or not, you can mark a section of a template to be escaped or not by using the autoescape tag": {
+    "prefix": ["!autoescape", "{% autoescape %}", "autoescape"],
+    "body": [
+      "{% autoescape %}",
+      "     $0",
+      "{% endautoescape %}"
+    ],
+    "description": "Whether automatic escaping is enabled or not, you can mark a section of a template to be escaped or not by using the autoescape tag"
+  },
+  "The include statement includes a template and returns the rendered content of that file": {
+    "prefix": ["!include", "{% include %}", "include"],
+    "body": [
+      "{% include '${1:example}' %}"
+    ],
+    "description": "The include statement includes a template and returns the rendered content of that file"
+  },
+  "Inside code blocks you can also assign values to variables. Assignments use the set tag and can have multiple targets.": {
+    "prefix": ["!set", "{% set %}", "set"],
+    "body": [
+      "{% set ${1:foo} = 'bar' %}"
+    ],
+    "description": "Inside code blocks you can also assign values to variables. Assignments use the set tag and can have multiple targets."
   }
+
 }

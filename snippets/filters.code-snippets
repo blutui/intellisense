@@ -1,0 +1,16 @@
+{  
+    "The date filter formats a date to a given format": {
+        "prefix": ["date", "|date" ],
+        "body": [
+          "| date('${1:m/d/Y}')"
+        ],
+        "description": "The date filter formats a date to a given format"
+    },
+    "The slug filter returns a URL friendly version of the value": {
+        "prefix": ["slug", "|slug" ],
+        "body": [
+          "| slug"
+        ],
+        "description": "The slug filter returns a URL friendly version of the value"
+      }
+}

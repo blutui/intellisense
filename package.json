@@ -19,7 +19,18 @@
             {
                 "language": "html",
                 "path": "./snippets/snippets.code-snippets"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/filters.code-snippets"
             }
-        ]
+        ],
+        "grammars": [
+            {
+              "path": "./syntaxes/injection.json",
+              "scopeName": "blutui.injection",
+              "injectTo": ["text.html"]
+            }
+          ]
     }
 }

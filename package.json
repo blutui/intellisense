@@ -22,14 +22,29 @@
             },
             {
                 "language": "html",
+                "path": "./snippets/functions.code-snippets"
+            },
+            {
+                "language": "html",
                 "path": "./snippets/filters.code-snippets"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/auto.code-snippets"
             }
         ],
         "grammars": [
             {
-              "path": "./syntaxes/injection.json",
-              "scopeName": "blutui.injection",
-              "injectTo": ["text.html"]
+              "path": "./syntaxes/blutui.tmLanguage",
+              "language": "html",
+              "scopeName": "text.html.twig",
+              "embeddedLanguages": {
+                "source.json": "json",
+                "source.css": "css",
+                "source.css.scss": "scss",
+                "source.js": "javascript",
+                "source.ts": "typescript"
+            }
             }
           ]
     }

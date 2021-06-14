@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -14,14 +15,14 @@
         (&lt;(?i:body|div|dl|fieldset|form|head|li|ol|script|select|style|table|tbody|tfoot|thead|tr|ul)\b.*?&gt;
         |&lt;!--(?!.*--\s*&gt;)
         |^&lt;!--\ \#tminclude\ (?&gt;.*?--&gt;)$
-        |\{%\s+(autoescape|block|embed|for|if|macro|set|)
+        |\{%\s+(autoescape|block|embed|filter|for|if|macro|raw|sandbox|set|spaceless|trans|verbatim)
         )</string>
     <key>foldingStopMarker</key>
     <string>(?x)
         (&lt;/(?i:body|div|dl|fieldset|form|head|li|ol|script|select|style|table|tbody|tfoot|thead|tr|ul)&gt;
         |^(?!.*?&lt;!--).*?--\s*&gt;
         |^&lt;!--\ end\ tminclude\ --&gt;$
-        |\{%\s+end(autoescape|block|embed|for|if|macro|set)
+        |\{%\s+end(autoescape|block|embed|filter|for|if|macro|raw|sandbox|set|spaceless|trans|verbatim)
         )</string>
     <key>keyEquivalent</key>
     <string>^~T</string>
@@ -1737,7 +1738,7 @@
                 </dict>
             </dict>
             <key>match</key>
-            <string>(?&lt;=(?:[a-zA-Z0-9_\x{7f}-\x{ff}\]\)\'\"]\|)|\{%\sfilter\s)(abs|capitalize|e(?:scape)?|first|join|(?:json|url)_encode|filter|keys|last|length|lower|nl2br|number_format|raw|reverse|round|slug|sort|striptags|title|trim|upper)(?=[\s\|\]\}\):,]|\.\.|\*\*)</string>
+            <string>(?&lt;=(?:[a-zA-Z0-9_\x{7f}-\x{ff}\]\)\'\"]\|)|\{%\sfilter\s)(abs|capitalize|e(?:scape)?|first|join|(?:json|url)_encode|keys|last|length|lower|nl2br|number_format|raw|reverse|round|sort|striptags|title|trim|upper)(?=[\s\|\]\}\):,]|\.\.|\*\*)</string>
         </dict>
 
         <!-- FILTERS (w/ arguments & user-defined) -->

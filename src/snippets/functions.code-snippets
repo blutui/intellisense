@@ -77,8 +77,6 @@
         ],
         "description": "The dump function dumps information about a variable. This is mostly useful to check the output of the provided variable"
       },
-
-
       "cms.blog function returns the given blog and its posts": {
         "prefix": "cms.blog",
         "body": [

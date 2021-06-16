@@ -1,3 +1,10 @@
-/dist
-/node_modules
+dist/
 *.vsix
+
+# Dependency directories
+node_modules/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride

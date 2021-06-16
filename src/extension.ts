@@ -1,241 +1,266 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import fetch from 'node-fetch';
-import * as vscode from 'vscode';
-import {Uri} from 'vscode';
+import fetch from 'node-fetch'
+import * as vscode from 'vscode'
+import { Uri, ExtensionContext, workspace as Workspace } from 'vscode'
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
+const CONFIG_FILE_GLOB = '{courier}.{json}'
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "blutui-intellisense" is now active!');
-	
+export async function activate(context: ExtensionContext) {
+  console.log(Uri.parse(`command:editor.action.addCommentLine`).toString())
 
-	let collectionHandle : string[];
-	let collectionID : string[];
-	let collectionVar : string[];
-	let collectionVarF : string[];
+  let watcher = Workspace.createFileSystemWatcher(
+    `**/${CONFIG_FILE_GLOB}`,
+    false,
+    true,
+    true
+  )
 
-	let formHandle : string[];
+  watcher.onDidChange((uri) => {
+    console.log(uri)
+  })
 
-	let formVarf : string[];
+  let collectionHandle: string[]
+  let collectionID: string[]
+  let collectionVar: string[]
+  let collectionVarF: string[]
 
-	let collectionObjects : object[];
-	let FormObjects : object[];
+  let formHandle: string[]
 
-	const auto = vscode.languages.registerCompletionItemProvider('html', {
-		provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
-			disposable()
+  let formVarf: string[]
 
-			const cmsCol = new vscode.CompletionItem('cms.collection()');
-			cmsCol.insertText = new vscode.SnippetString("cms.collection('${1|"+collectionHandle.join()+"|}')");
-			cmsCol.documentation = new vscode.MarkdownString("Handle");
+  let collectionObjects: object[]
+  let FormObjects: object[]
 
-			const cmsForm = new vscode.CompletionItem('cms.form()');
-			cmsForm.insertText = new vscode.SnippetString("cms.form('${1|"+formHandle.join()+"|}')");
-			cmsForm.documentation = new vscode.MarkdownString("Handle");
+  const auto = vscode.languages.registerCompletionItemProvider('html', {
+    provideCompletionItems(
+      document: vscode.TextDocument,
+      position: vscode.Position,
+      token: vscode.CancellationToken,
+      context: vscode.CompletionContext
+    ) {
+      disposable()
 
-	
-			const entry = new vscode.CompletionItem('entry');
-			entry.commitCharacters = ['.'];
-			entry.documentation = new vscode.MarkdownString('Press `.` to get `entry.`');
+      const cmsCol = new vscode.CompletionItem('cms.collection()')
+      cmsCol.insertText = new vscode.SnippetString(
+        "cms.collection('${1|" + collectionHandle.join() + "|}')"
+      )
+      cmsCol.documentation = new vscode.MarkdownString('Handle')
 
-			const item = new vscode.CompletionItem('item');
-			item.commitCharacters = ['.'];
-			item.documentation = new vscode.MarkdownString('Press `.` to get `item.`');
+      const cmsForm = new vscode.CompletionItem('cms.form()')
+      cmsForm.insertText = new vscode.SnippetString(
+        "cms.form('${1|" + formHandle.join() + "|}')"
+      )
+      cmsForm.documentation = new vscode.MarkdownString('Handle')
 
+      const entry = new vscode.CompletionItem('entry')
+      entry.commitCharacters = ['.']
+      entry.documentation = new vscode.MarkdownString(
+        'Press `.` to get `entry.`'
+      )
 
-			const form = new vscode.CompletionItem('form');
-			form.commitCharacters = ['.'];
-			form.documentation = new vscode.MarkdownString('Press `.` to get `form.`');
+      const item = new vscode.CompletionItem('item')
+      item.commitCharacters = ['.']
+      item.documentation = new vscode.MarkdownString('Press `.` to get `item.`')
 
-			return [
-				cmsCol,
-				cmsForm,
-				entry,
-				item,
-				form
-			];
-		}
-	});
+      const form = new vscode.CompletionItem('form')
+      form.commitCharacters = ['.']
+      form.documentation = new vscode.MarkdownString('Press `.` to get `form.`')
 
-	const collectionAuto = vscode.languages.registerCompletionItemProvider(
-		'html',
-		{
-			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+      return [cmsCol, cmsForm, entry, item, form]
+    },
+  })
 
-				const linePrefix = document.lineAt(position).text.substr(0, position.character);
-				if (!linePrefix.endsWith('entry.')) {
-					return undefined;
-				}
-				const colComplete: vscode.ProviderResult<vscode.CompletionItem[] | vscode.CompletionList<vscode.CompletionItem>> = []
-				
-				var i = 0
-				collectionVarF.forEach(element => {
-					colComplete[i] = new vscode.CompletionItem(element, vscode.CompletionItemKind.Method)
-					i++;
-				})
-				return colComplete;
-			}
-		},
-		'.' // triggered whenever a '.' is being typed
-	);
+  const collectionAuto = vscode.languages.registerCompletionItemProvider(
+    'html',
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character)
+        if (!linePrefix.endsWith('entry.')) {
+          return undefined
+        }
+        const colComplete: vscode.ProviderResult<
+          vscode.CompletionItem[] | vscode.CompletionList<vscode.CompletionItem>
+        > = []
 
-	const collectionAutoI = vscode.languages.registerCompletionItemProvider(
-		'html',
-		{
-			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+        var i = 0
+        collectionVarF.forEach((element) => {
+          colComplete[i] = new vscode.CompletionItem(
+            element,
+            vscode.CompletionItemKind.Method
+          )
+          i++
+        })
+        return colComplete
+      },
+    },
+    '.' // triggered whenever a '.' is being typed
+  )
 
-				const linePrefix = document.lineAt(position).text.substr(0, position.character);
-				if (!linePrefix.endsWith('item.')) {
-					return undefined;
-				}
-				const colComplete: vscode.ProviderResult<vscode.CompletionItem[] | vscode.CompletionList<vscode.CompletionItem>> = []
-				
-				var i = 0
-				collectionVarF.forEach(element => {
-					colComplete[i] = new vscode.CompletionItem(element, vscode.CompletionItemKind.Method)
-					i++;
-				})
-				return colComplete;
-			}
-		},
-		'.' // triggered whenever a '.' is being typed
-	);
+  const collectionAutoI = vscode.languages.registerCompletionItemProvider(
+    'html',
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character)
+        if (!linePrefix.endsWith('item.')) {
+          return undefined
+        }
+        const colComplete: vscode.ProviderResult<
+          vscode.CompletionItem[] | vscode.CompletionList<vscode.CompletionItem>
+        > = []
 
-	const formAuto = vscode.languages.registerCompletionItemProvider(
-		'html',
-		{
-			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+        var i = 0
+        collectionVarF.forEach((element) => {
+          colComplete[i] = new vscode.CompletionItem(
+            element,
+            vscode.CompletionItemKind.Method
+          )
+          i++
+        })
+        return colComplete
+      },
+    },
+    '.' // triggered whenever a '.' is being typed
+  )
 
-				const linePrefix = document.lineAt(position).text.substr(0, position.character);
-				if (!linePrefix.endsWith('form.')) {
-					return undefined;
-				}
-				const colComplete: vscode.ProviderResult<vscode.CompletionItem[] | vscode.CompletionList<vscode.CompletionItem>> = []
-				
-				var i = 0
-				formVarf.forEach(element => {
-					colComplete[i] = new vscode.CompletionItem(element, vscode.CompletionItemKind.Method)
-					i++;
-				})
-				
+  const formAuto = vscode.languages.registerCompletionItemProvider(
+    'html',
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character)
+        if (!linePrefix.endsWith('form.')) {
+          return undefined
+        }
+        const colComplete: vscode.ProviderResult<
+          vscode.CompletionItem[] | vscode.CompletionList<vscode.CompletionItem>
+        > = []
 
-				return colComplete;
+        var i = 0
+        formVarf.forEach((element) => {
+          colComplete[i] = new vscode.CompletionItem(
+            element,
+            vscode.CompletionItemKind.Method
+          )
+          i++
+        })
 
-				
-			}
-		},
-		'.' // triggered whenever a '.' is being typed
-	);
+        return colComplete
+      },
+    },
+    '.' // triggered whenever a '.' is being typed
+  )
 
+  const disposable = async () => {
+    console.log('Calling Api')
 
+    if (vscode.workspace.workspaceFolders !== undefined) {
+      let wf = vscode.workspace.workspaceFolders[0].uri.path
+      let uri = Uri.file(wf + '/courier.json')
+      vscode.workspace.openTextDocument(uri).then(async (document) => {
+        let text = document.getText()
+        let website = JSON.parse(text)
 
-	const disposable = async () => {
-		console.log("Calling Api")
+        let url = 'https://' + website.site + '/api'
 
-		if(vscode.workspace.workspaceFolders !== undefined) {
-			let wf = vscode.workspace.workspaceFolders[0].uri.path ;
-			let uri = Uri.file(wf+'/courier.json')
-			vscode.workspace.openTextDocument(uri).then(async (document) => {
-				let text = document.getText();
-				let website = JSON.parse(text)
+        let urlL = url + '/collections'
+        const response = await fetch(urlL, {
+          method: 'GET',
+          headers: {
+            Authorization: website.token,
+          },
+        })
+        const myJson = await response.json() //extract JSON from the http response
+        // do something with myJson
+        collectionHandle = myJson.map((a: any) => a.handle)
+        collectionID = myJson.map((a: any) => a.id)
 
-				let url = "https://" + website.site + "/api"
+        const collect = []
+        const collectOp: string[] = []
 
-				let urlL = url + "/collections"
-				const response = await fetch(urlL,{
-					method: 'GET',
-					headers: {
-						Authorization: website.token
-					}
-				});
-				const myJson = await response.json(); //extract JSON from the http response
-				// do something with myJson
-				collectionHandle = myJson.map((a:any) => a.handle);
-				collectionID = myJson.map((a:any) => a.id);
+        for (const i of collectionID) {
+          let urlID = urlL + '/' + i
+          const r = await fetch(urlID, {
+            method: 'GET',
+            headers: {
+              Authorization: website.token,
+            },
+          })
+          const col = await r.json()
+          collectionVar = await col.fields.map((a: any) => a.name)
+          let collection = {
+            handle: col.handle,
+            fields: collectionVar,
+          }
+          collect.push(collection)
+        }
+        collectionObjects = collect
 
-				const collect = []
-				const collectOp: string[] = [];
+        collect.forEach((element) => {
+          element.fields.forEach((el) => {
+            if (collectOp.indexOf(el) == -1) {
+              collectOp.push(el)
+            }
+          })
+        })
 
-				for (const i of collectionID) {
-					let urlID = urlL + "/" + i;
-					const r = await fetch(urlID,{
-						method: 'GET',
-						headers: {
-							Authorization: website.token
-						}
-					});
-					const col = await r.json(); 
-					collectionVar = await col.fields.map((a:any) => a.name);
-					let collection = { 
-						handle : col.handle,
-						fields : collectionVar
-					}
-					collect.push(collection)
-				}
-				collectionObjects = collect;
-				
-				
-				collect.forEach(element => {
-					element.fields.forEach(el => {
-						if( collectOp.indexOf(el) == -1 ){
-							collectOp.push(el)
-						}
-					})
-				});
+        collectionVarF = collectOp
 
-				collectionVarF = collectOp;
+        let urlF = url + '/forms'
+        const g = await fetch(urlF, {
+          method: 'GET',
+          headers: {
+            Authorization: website.token,
+          },
+        })
+        const j = await g.json()
 
+        let form = j.map((a: any) => a.handle)
+        let formL = j.map((a: any) => a.template)
+        let formB = j.map((a: any) => a.fields.map((b: any) => b.name))
 
-				
-				let urlF = url + "/forms"
-				const g = await fetch(urlF,{
-					method: 'GET',
-					headers: {
-						Authorization: website.token
-					}
-				});
-				const j = await g.json();
-				
-				let form = j.map((a:any) => a.handle);
-				let formL = j.map((a:any) => a.template);
-				let formB = j.map((a:any) => a.fields.map((b:any) => b.name));
+        const f = []
+        for (let index = 0; index < form.length; index++) {
+          let formobj = {
+            handle: form[index],
+            location: formL[index],
+            fields: formB[index],
+          }
+          f.push(formobj)
+        }
+        FormObjects = f
+        const formOp: string[] = []
 
-				const f = [];
-				for (let index = 0; index < form.length; index++) 
-				{
-					let formobj = {
-						handle : form[index],
-						location : formL[index],
-						fields : formB[index]
-					}
-					f.push(formobj)
-				}
-				FormObjects = f
-				const formOp : string[] = [];
+        formHandle = FormObjects.map((a: any) => a.handle)
 
-				formHandle = FormObjects.map((a:any) => a.handle);
+        f.forEach((element) => {
+          element.fields.forEach((el: string) => {
+            if (formOp.indexOf(el) == -1) {
+              formOp.push(el)
+            }
+          })
+        })
+        formVarf = formOp
 
-				f.forEach(element => {
-					element.fields.forEach((el: string) => {
-						if( formOp.indexOf(el) == -1 ){
-							formOp.push(el)
-						}
-					})
-				});
-				formVarf = formOp;
+        console.log('Got Api')
+      })
+    }
+  }
 
-				console.log("Got Api") 
-			});
-		}
-		
-	};	
-
-	disposable()
-	context.subscriptions.push(auto,collectionAuto,collectionAutoI,formAuto);
+  disposable()
+  context.subscriptions.push(auto, collectionAuto, collectionAutoI, formAuto)
 }
 
 // this method is called when your extension is deactivated

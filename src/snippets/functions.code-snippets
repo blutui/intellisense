@@ -1,122 +1,84 @@
 {
-    "cms_audio function is used to define a slot for CMS driven audio content, editable using Blutui Canopy": {
-        "prefix": "cms_audio",
-        "body": [
-          "{{ cms_audio('${1:audio}') }}"
-        ],
-        "description": "cms_audio function is used to define a slot for CMS driven audio content, editable using Blutui Canopy"
-      },
-      "cms_button function is used to define a slot for CMS driven button content, editable using Blutui Canopy": {
-        "prefix": "cms_button",
-        "body": [
-          "{{ cms_button('${1:cta-hero}') }}"
-        ],
-        "description": "cms_button function is used to define a slot for CMS driven button content, editable using Blutui Canopy"
-      },
-      "cms_code function is used to define a slot for CMS driven code content, editable using Blutui Canopy": {
-        "prefix": "cms_code",
-        "body": [
-          "{{ cms_code('${1:example-code}') }}"
-        ],
-        "description": "cms_code function is used to define a slot for CMS driven code content, editable using Blutui Canopy"
-      },
-      "cms_embed function is used to define a slot for CMS driven embed content, editable using Blutui Canopy": {
-        "prefix": "cms_embed",
-        "body": [
-          "{{ cms_embed('${1:hero-video}') }}"
-        ],
-        "description": "cms_embed function is used to define a slot for CMS driven embed content, editable using Blutui Canopy"
-      },
-      "cms_heading function is used to define a slot for CMS driven heading content, editable using Blutui Canopy": {
-        "prefix": "cms_heading",
-        "body": [
-          "{{ cms_heading('${1:hero-heading}') }}"
-        ],
-        "description": "cms_heading function is used to define a slot for CMS driven heading content, editable using Blutui Canopy"
-      },
-      "cms_image function is used to define a slot for CMS driven image content, editable using Blutui Canopy": {
-        "prefix": "cms_image",
-        "body": [
-          "{{ cms_image('${1:hero-image}') }}"
-        ],
-        "description": "cms_image function is used to define a slot for CMS driven image content, editable using Blutui Canopy"
-      },
-      "cms_list function is used to define a slot for CMS driven list content, editable using Blutui Canopy": {
-        "prefix": "cms_list",
-        "body": [
-          "{{ cms_list('${1:shooping-list}') }}"
-        ],
-        "description": "cms_list function is used to define a slot for CMS driven list content, editable using Blutui Canopy"
-      },
-      "cms_quote function is used to define a slot for CMS driven blockquote content, editable using Blutui Canopy": {
-        "prefix": "cms_quote",
-        "body": [
-          "{{ cms_quote('${1:quote}') }}"
-        ],
-        "description": "cms_quote function is used to define a slot for CMS driven blockquote content, editable using Blutui Canopy"
-      },
-      "cms_text function is used to define a slot for CMS driven text content, editable using Blutui Canopy": {
-        "prefix": "cms_text",
-        "body": [
-          "{{ cms_text('${1:hero-content}') }}"
-        ],
-        "description": "cms_text function is used to define a slot for CMS driven text content, editable using Blutui Canopy"
-      },
-      "cms_video function is used to define a slot for CMS driven video content, editable using Blutui Canopy": {
-        "prefix": "cms_video",
-        "body": [
-          "{{ cms_video('${1:hero}') }}"
-        ],
-        "description": "cms_video function is used to define a slot for CMS driven video content, editable using Blutui Canopy"
-      },
+  "cms_audio function is used to define a slot for CMS driven audio content, editable using Blutui Canopy": {
+    "prefix": "cms_audio",
+    "body": ["{{ cms_audio('${1:audio}') }}"],
+    "description": "cms_audio function is used to define a slot for CMS driven audio content, editable using Blutui Canopy"
+  },
+  "cms_button function is used to define a slot for CMS driven button content, editable using Blutui Canopy": {
+    "prefix": "cms_button",
+    "body": ["{{ cms_button('${1:cta-hero}') }}"],
+    "description": "cms_button function is used to define a slot for CMS driven button content, editable using Blutui Canopy"
+  },
+  "cms_code function is used to define a slot for CMS driven code content, editable using Blutui Canopy": {
+    "prefix": "cms_code",
+    "body": ["{{ cms_code('${1:example-code}') }}"],
+    "description": "cms_code function is used to define a slot for CMS driven code content, editable using Blutui Canopy"
+  },
+  "cms_embed function is used to define a slot for CMS driven embed content, editable using Blutui Canopy": {
+    "prefix": "cms_embed",
+    "body": ["{{ cms_embed('${1:hero-video}') }}"],
+    "description": "cms_embed function is used to define a slot for CMS driven embed content, editable using Blutui Canopy"
+  },
+  "cms_heading function is used to define a slot for CMS driven heading content, editable using Blutui Canopy": {
+    "prefix": "cms_heading",
+    "body": ["{{ cms_heading('${1:hero-heading}') }}"],
+    "description": "cms_heading function is used to define a slot for CMS driven heading content, editable using Blutui Canopy"
+  },
+  "cms_image function is used to define a slot for CMS driven image content, editable using Blutui Canopy": {
+    "prefix": "cms_image",
+    "body": ["{{ cms_image('${1:hero-image}') }}"],
+    "description": "cms_image function is used to define a slot for CMS driven image content, editable using Blutui Canopy"
+  },
+  "cms_list function is used to define a slot for CMS driven list content, editable using Blutui Canopy": {
+    "prefix": "cms_list",
+    "body": ["{{ cms_list('${1:shooping-list}') }}"],
+    "description": "cms_list function is used to define a slot for CMS driven list content, editable using Blutui Canopy"
+  },
+  "cms_quote function is used to define a slot for CMS driven blockquote content, editable using Blutui Canopy": {
+    "prefix": "cms_quote",
+    "body": ["{{ cms_quote('${1:quote}') }}"],
+    "description": "cms_quote function is used to define a slot for CMS driven blockquote content, editable using Blutui Canopy"
+  },
+  "cms_text function is used to define a slot for CMS driven text content, editable using Blutui Canopy": {
+    "prefix": "cms_text",
+    "body": ["{{ cms_text('${1:hero-content}') }}"],
+    "description": "cms_text function is used to define a slot for CMS driven text content, editable using Blutui Canopy"
+  },
+  "cms_video function is used to define a slot for CMS driven video content, editable using Blutui Canopy": {
+    "prefix": "cms_video",
+    "body": ["{{ cms_video('${1:hero}') }}"],
+    "description": "cms_video function is used to define a slot for CMS driven video content, editable using Blutui Canopy"
+  },
 
-      "The dump function dumps information about a variable. This is mostly useful to check the output of the provided variable": {
-        "prefix": "dump",
-        "body": [
-          "{{ dump('${1:user}') }}"
-        ],
-        "description": "The dump function dumps information about a variable. This is mostly useful to check the output of the provided variable"
-      },
-      "cms.blog function returns the given blog and its posts": {
-        "prefix": "cms.blog",
-        "body": [
-          "{{ cms.blog('${1:blog}') }}"
-        ],
-        "description": "cms.blog function returns the given blog and its posts"
-      },
-      "cms.collection function returns the given collections entries": {
-        "prefix": "cms.collection",
-        "body": [
-          "{{ cms.collection('${1:staff}') }}"
-        ],
-        "description": "cms.collection function returns the given collections entries"
-      },
-      "cms.form function returns the given form": {
-        "prefix": "cms.form",
-        "body": [
-          "{{ cms.form('${1:contact}') }}"
-        ],
-        "description": "cms.form function returns the given form"
-      },
-      "cms.menu function returns the given menu": {
-        "prefix": "cms.menu",
-        "body": [
-          "{{ cms.menu('${1:primary}') }}"
-        ],
-        "description": "cms.menu function returns the given menu"
-      },
+  "The dump function dumps information about a variable. This is mostly useful to check the output of the provided variable": {
+    "prefix": "dump",
+    "body": ["{{ dump('${1:user}') }}"],
+    "description": "The dump function dumps information about a variable. This is mostly useful to check the output of the provided variable"
+  },
+  "cms.blog function returns the given blog and its posts": {
+    "prefix": "cms.blog",
+    "body": ["{{ cms.blog('${1:blog}') }}"],
+    "description": "cms.blog function returns the given blog and its posts"
+  },
+  "cms.collection function returns the given collections entries": {
+    "prefix": "cms.collection",
+    "body": ["{{ cms.collection('${1:staff}') }}"],
+    "description": "cms.collection function returns the given collections entries"
+  },
+  "cms.form function returns the given form": {
+    "prefix": "cms.form",
+    "body": ["{{ cms.form('${1:contact}') }}"],
+    "description": "cms.form function returns the given form"
+  },
+  "cms.menu function returns the given menu": {
+    "prefix": "cms.menu",
+    "body": ["{{ cms.menu('${1:primary}') }}"],
+    "description": "cms.menu function returns the given menu"
+  },
 
-
-
-      "asset returns the public path of the given asset path (which can be a CSS file, a JavaScript file, an image path, etc.). For projects that are published, the asset function returns the CDN path of the given asset path": {
-        "prefix": "asset",
-        "body": [
-          "{{ asset('${1:file-location}') }}"
-        ],
-        "description": "asset returns the public path of the given asset path (which can be a CSS file, a JavaScript file, an image path, etc.). For projects that are published, the asset function returns the CDN path of the given asset path"
-      }
-
-
-
-
+  "asset returns the public path of the given asset path (which can be a CSS file, a JavaScript file, an image path, etc.). For projects that are published, the asset function returns the CDN path of the given asset path": {
+    "prefix": "asset",
+    "body": ["{{ asset('${1:file-location}') }}"],
+    "description": "asset returns the public path of the given asset path (which can be a CSS file, a JavaScript file, an image path, etc.). For projects that are published, the asset function returns the CDN path of the given asset path"
+  }
 }

@@ -2,14 +2,14 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "files.exclude": {
-      "**/.DS_Store": true,
-      "**/.git": true,
-      "**/node_modules": true,
-      "dist/": false
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/node_modules": true,
+    "dist/": false
   },
   "search.exclude": {
-      "**/node_modules": true,
-      "dist/": true
+    "**/node_modules": true,
+    "dist/": true
   },
   "typescript.tsdk": "./node_modules/typescript/lib"
 }

@@ -1,6 +1,6 @@
 {
   "name": "intellisense",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "blutui",
   "displayName": "Blutui IntelliSense",
   "description": "Intelligent Blutui tooling for VS Code",
@@ -49,26 +49,26 @@
     "snippets": [
       {
         "language": "html",
-        "path": "./src/snippets/snippets.code-snippets"
+        "path": "./snippets/snippets.code-snippets"
       },
       {
         "language": "html",
-        "path": "./src/snippets/functions.code-snippets"
+        "path": "./snippets/functions.code-snippets"
       },
       {
         "language": "html",
-        "path": "./src/snippets/filters.code-snippets"
+        "path": "./snippets/filters.code-snippets"
       },
       {
         "language": "html",
-        "path": "./src/snippets/auto.code-snippets"
+        "path": "./snippets/auto.code-snippets"
       }
     ],
     "grammars": [
       {
-        "path": "./src/syntaxes/blutui.tmLanguage",
         "language": "html",
         "scopeName": "text.html.twig",
+        "path": "./syntaxes/blutui.tmLanguage",
         "embeddedLanguages": {
           "source.json": "json",
           "source.css": "css",
@@ -103,6 +103,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "glob": "^7.1.6",
+    "js-yaml": "^4.1.0",
     "mocha": "^8.2.1",
     "prettier": "^2.3.1",
     "ts-loader": "^8.3.0",

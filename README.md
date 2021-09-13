@@ -7,7 +7,7 @@ This is by providing Visual Studio Code users with advanced features like, autoc
 
 ## Syntax highlighting
 
-Its better then no having highlighting.
+It's better than not having syntax highlighting.
 
 ![Syntax highlighting](https://cdn.blutui.com/uploads/assets/Intellisense/syntax-highlighting.png 'Syntax highlighting')
 

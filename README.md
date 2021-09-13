@@ -1,65 +1,25 @@
-# blutuisnippets README
+# Blutui Intellisense
 
-This is the README for your extension "blutuisnippets". After writing up a brief description, we recommend including the following sections.
+Blutui IntelliSense enhances the Blutui development experience.
+This is by providing Visual Studio Code users with advanced features like, autocomplete, syntax highlighting and snippets.
 
-## Features
+# Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## Syntax highlighting
 
-For example if there is an image subfolder under your extension project workspace:
+Its better then no having highlighting.
 
-\!\[feature X\]\(images/feature-x.png\)
+![Syntax highlighting](https://cdn.blutui.com/uploads/assets/Intellisense/syntax-highlighting.png 'Syntax highlighting')
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Autocomplete
 
-## Requirements
+This is a system that uses your courier.json file to access the project you are working on and get the variable while you are editing.
+To use this make sure the collection variable is entry the just type `entry.` in vscode and get all the handles that you created.
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+![Autocomplete](https://cdn.blutui.com/uploads/assets/Intellisense/varible-getting.png 'Autocomplete')
 
-## Extension Settings
+## Snippets
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+This give access to the main snippets of blutui. This allows user quick and easy writing with autocomplete of snippets.
 
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+![Snippets](https://cdn.blutui.com/uploads/assets/Intellisense/autocomplete.png 'Snippets')

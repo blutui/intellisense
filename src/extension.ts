@@ -164,8 +164,6 @@ export async function activate(context: ExtensionContext) {
   )
 
   const disposable = async () => {
-    console.log('Calling Api')
-
     if (vscode.workspace.workspaceFolders !== undefined) {
       let wf = vscode.workspace.workspaceFolders[0].uri.path
       let uri = Uri.file(wf + '/courier.json')
@@ -183,10 +181,8 @@ export async function activate(context: ExtensionContext) {
           },
         })
         const myJson = await response.json() //extract JSON from the http response
-        // do something with myJson
         collectionHandle = myJson.map((a: any) => a.handle)
         collectionID = myJson.map((a: any) => a.id)
-
         const collect = []
         const collectOp: string[] = []
 
@@ -215,7 +211,6 @@ export async function activate(context: ExtensionContext) {
             }
           })
         })
-
         collectionVarF = collectOp
 
         let urlF = url + '/forms'
@@ -227,10 +222,18 @@ export async function activate(context: ExtensionContext) {
         })
         const j = await g.json()
 
-        let form = j.map((a: any) => a.handle)
-        let formL = j.map((a: any) => a.template)
-        let formB = j.map((a: any) => a.fields.map((b: any) => b.name))
+        let form = await j.map((a: any) => a.handle)
+        let formL = await j.map((a: any) => a.template)
+        let formB = await j.map((a: any) => a.fields.map((b: any) => b.name))
 
+        let urlA = url + '/pages'
+        const a = await fetch(urlA, {
+          method: 'GET',
+          headers: {
+            Authorization: website.token,
+          },
+        })
+        const aj = await a.json()
         const f = []
         for (let index = 0; index < form.length; index++) {
           let formobj = {
@@ -253,14 +256,22 @@ export async function activate(context: ExtensionContext) {
           })
         })
         formVarf = formOp
-
-        console.log('Got Api')
       })
     }
   }
 
+  const test = vscode.commands.registerCommand('extension.test', () => {
+    vscode.window.showInformationMessage('I do work')
+  })
+
   disposable()
-  context.subscriptions.push(auto, collectionAuto, collectionAutoI, formAuto)
+  context.subscriptions.push(
+    auto,
+    collectionAuto,
+    collectionAutoI,
+    formAuto,
+    test
+  )
 }
 
 // this method is called when your extension is deactivated

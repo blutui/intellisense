@@ -3,7 +3,13 @@
   "version": "0.1.0",
   "publisher": "blutui",
   "displayName": "Blutui IntelliSense",
-  "description": "",
+  "description": "Intelligent Blutui tooling for VS Code",
+  "license": "MIT",
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blutui/intellisense.git"
+  },
   "engines": {
     "vscode": "^1.55.0"
   },

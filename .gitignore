@@ -1,8 +1,6 @@
-dist/
-*.vsix
-
 # Dependency directories
 node_modules/
+*.vsix
 
 # macOS
 .DS_Store

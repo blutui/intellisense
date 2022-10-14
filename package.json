@@ -1,10 +1,65 @@
 {
-  "name": "root",
-  "private": true,
+  "name": "@blutui/intellisense",
+  "version": "0.0.1",
   "scripts": {
-    "bootstrap": "lerna bootstrap --hoist"
+    "build": "webpack",
+    "dev": "webpack --watch",
+    "lint": "eslint ./src ./server --ext .ts",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "dependencies": {
+    "vscode-languageclient": "^8.0.2",
+    "vscode-languageserver": "^8.0.2",
+    "vscode-languageserver-textdocument": "^1.0.7"
   },
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "@types/node": "^18.8.5",
+    "@types/vscode": "^1.72.0",
+    "@types/webpack": "^5.28.0",
+    "eslint": "^7.32.0",
+    "prettier": "^2.7.1",
+    "ts-loader": "^9.4.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "activationEvents": [
+    "onLanguage:canvas"
+  ],
+  "main": "./dist/extension",
+  "contributes": {
+    "configuration": {
+      "type": "object"
+    },
+    "languages": [
+      {
+        "id": "canvas",
+        "aliases": [
+          "Canvas",
+          "canvas",
+          "HTML Canvas"
+        ],
+        "extensions": [
+          ".canvas"
+        ],
+        "configuration": "./canvas.configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "canvas",
+        "scopeName": "text.html.canvas",
+        "path": "./syntaxes/grammars/canvas.tmLanguage.json",
+        "embeddedLanguages": {
+          "meta.embedded.block.css": "css",
+          "meta.embedded.block.js": "javascript"
+        }
+      }
+    ]
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "vscode": "^1.63.0"
   }
 }

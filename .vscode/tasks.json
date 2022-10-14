@@ -3,16 +3,16 @@
   "tasks": [
     {
       "type": "npm",
-      "script": "watch",
-      "problemMatcher": ["$ts-webpack-watch", "$tslint-webpack-watch"],
+      "script": "dev",
       "isBackground": true,
       "presentation": {
+        "panel": "dedicated",
         "reveal": "never"
       },
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
+      "problemMatcher": [
+        "$ts-webpack-watch",
+        "$tslint-webpack-watch"
+      ]
     }
   ]
 }

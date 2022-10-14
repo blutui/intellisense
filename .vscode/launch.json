@@ -7,11 +7,36 @@
       "name": "Launch Client",
       "runtimeExecutable": "${execPath}",
       "args": [
-        "--extensionDevelopmentPath=${workspaceFolder}/packages/intellisense"
+        "--extensionDevelopmentPath=${workspaceRoot}"
       ],
-      "stopOnEntry": false,
+      "outFiles": [
+        "${workspaceRoot}/dist/**/*.js"
+      ],
+      "preLaunchTask": {
+        "type": "npm",
+        "script": "dev"
+      },
       "sourceMaps": true,
-      "outFiles": ["${workspaceFolder}/packages/intellisense/dist/**/*.js"]
+      "trace": true
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attact to Server",
+      "port": 6009,
+      "restart": true,
+      "outFiles": [
+        "${workspaceRoot}/dist/**/*.js",
+      ]
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Client + Server",
+      "configurations": [
+        "Launch Client",
+        "Attact to Server"
+      ]
     }
   ]
 }

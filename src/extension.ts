@@ -31,7 +31,10 @@ export function activate(context: ExtensionContext) {
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
     // Register the server for canvas documents
-    documentSelector: [{ scheme: 'file', language: 'canvas' }],
+    documentSelector: [
+      { scheme: 'file', language: 'canvas' },
+      { scheme: 'file', language: 'html' },
+    ],
   }
 
   client = new LanguageClient(

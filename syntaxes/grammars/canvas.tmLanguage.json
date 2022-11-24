@@ -1,0 +1,346 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Canvas HTML",
+  "scopeName": "text.html.canvas",
+  "fileTypes": ["canvas"],
+  "patterns": [
+    {
+      "include": "#core"
+    }
+  ],
+  "repository": {
+    "core": {
+      "patterns": [
+        {
+          "include": "#comment_block"
+        },
+        {
+          "include": "#object"
+        },
+        {
+          "include": "#tag"
+        },
+        {
+          "include": "text.html.basic"
+        }
+      ]
+    },
+    "injection": {
+      "patterns": [
+        {
+          "include": "#comment_block"
+        },
+        {
+          "include": "#object"
+        }
+      ]
+    },
+    "comment_block": {
+      "begin": "{#-?",
+      "end": "-?#}",
+      "name": "comment.block.canvas",
+      "patterns": [
+        {
+          "include": "#comment_block"
+        }
+      ]
+    },
+    "tag": {
+      "begin": "{%-?",
+      "end": "-?%}",
+      "name": "meta.tag.canvas",
+      "patterns": [
+        {
+          "include": "#tag_body"
+        }
+      ]
+    },
+    "tag_body": {
+      "patterns": [
+        {
+          "include": "#tag_set"
+        },
+        {
+          "include": "#tag_conditional"
+        },
+        {
+          "include": "#tag_for"
+        },
+        {
+          "include": "#tag_expression"
+        }
+      ]
+    },
+    "tag_conditional": {
+      "begin": "(?:(?:(?<={%)|(?<={%-)|^)\\s*)(if|elseif)\\b",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.conditional.canvas"
+        }
+      },
+      "end": "(?=%})",
+      "name": "meta.entity.tag.conditional.canvas",
+      "patterns": [
+        {
+          "include": "#value_expression"
+        }
+      ]
+    },
+    "tag_for": {
+      "begin": "(?:(?:(?<={%)|(?<={%-)|^)\\s*)(for)\\b",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.for.canvas"
+        }
+      },
+      "end": "(?=%})",
+      "name": "meta.entity.tag.for.canvas",
+      "patterns": [
+        {
+          "include": "#tag_for_body"
+        },
+        {
+          "include": "#value_expression"
+        }
+      ]
+    },
+    "tag_for_body": {
+      "patterns": [
+        {
+          "match": "\\b(in|if)\\b",
+          "name": "keyword.control.canvas"
+        }
+      ]
+    },
+    "tag_set": {
+      "name": "meta.entity.tag.canvas",
+      "begin": "(?:(?:(?<={%)|(?<={%-)|^)\\s*)(set)\\b",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.tag.canvas"
+        }
+      },
+      "end": "(?=%})",
+      "patterns": [
+        {
+          "include": "#filter"
+        },
+        {
+          "include": "#attribute"
+        },
+        {
+          "include": "#value_expression"
+        }
+      ]
+    },
+    "tag_expression_without_arguments": {
+      "patterns": [
+        {
+          "match": "(?:(?:(?<={%)|(?<={%-)|^)\\s*)(endif)\\b",
+          "captures": {
+            "1": {
+              "name": "keyword.control.conditional.canvas"
+            }
+          }
+        },
+        {
+          "match": "(?:(?:(?<={%)|(?<={%-)|^)\\s*)(endfor)\\b",
+          "captures": {
+            "1": {
+              "name": "keyword.control.loop.canvas"
+            }
+          }
+        }
+      ]
+    },
+    "tag_expression": {
+      "patterns": [
+        {
+          "include": "#tag_expression_without_arguments"
+        },
+        {
+          "begin": "(?:(?:(?<={%)|(?<={%-)|^)\\s*)(\\w+)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.tag.canvas"
+            }
+          },
+          "end": "(?=%})",
+          "name": "meta.entity.tag.canvas",
+          "patterns": [
+            {
+              "include": "#value_expression"
+            }
+          ]
+        }
+      ]
+    },
+    "object": {
+      "begin": "{{-?",
+      "end": "-?}}",
+      "name": "meta.object.canvas",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.tag.begin.canvas"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.tag.end.canvas"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#filter"
+        },
+        {
+          "include": "#attribute"
+        },
+        {
+          "include": "#value_expression"
+        }
+      ]
+    },
+    "property": {
+      "patterns": [
+        {
+          "match": "(?x)(?<=[a-zA-Z0-9_])(\\.)([a-zA-Z_][a-zA-Z0-9_]*)(?=[\\.\\s\\|\\[\\)\\]\\}:,])",
+          "captures": {
+            "1": {
+              "name": "punctuation.separator.property.canvas"
+            },
+            "2": {
+              "name": "variable.other.property.canvas"
+            }
+          }
+        }
+      ]
+    },
+    "number": {
+      "match": "((-|\\+)\\s*)?[0-9]+(\\.[0-9]+)?",
+      "name": "constant.numeric.canvas"
+    },
+    "string": {
+      "patterns": [
+        { "include": "#string_single" },
+        { "include": "#string_double" }
+      ]
+    },
+    "string_single": {
+      "begin": "'",
+      "end": "'",
+      "name": "string.quoted.single.canvas"
+    },
+    "string_double": {
+      "begin": "\"",
+      "end": "\"",
+      "name": "string.quoted.double.canvas"
+    },
+    "operator": {
+      "patterns": [
+        {
+          "match": "(?<=\\s)(\\+|\\-|\\/?|\\%|\\*\\*?)(?=\\s)",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.arithmetic.canvas"
+            }
+          }
+        },
+        {
+          "match": "(?<=\\s)(\\=|\\~)(?=\\s)",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.assignment.canvas"
+            }
+          }
+        },
+        {
+          "match": "(?<=\\s)((?:!|=)=|<=?|<=?|(?:not )?in|is(?: not)?|(?:ends|starts) with|matches)(?=\\s)",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.comparison.canvas"
+            }
+          }
+        },
+        {
+          "match": "(?<=\\s)(\\?|:|and|not|or)(?=\\s)",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.logical.canvas"
+            }
+          }
+        },
+        {
+          "match": "(?<=[a-zA-Z0-9_\\]\\)'\"])\\.\\.(?=[a-zA-Z0-9_'\"])",
+          "captures": {
+            "0": {
+              "name": "keyword.operator.other.canvas"
+            }
+          }
+        },
+        {
+          "match": "(?<=[a-zA-Z0-9_\\]\\}\\)'\"])(\\s*\\|\\s*)(?=[a-zA-Z_])",
+          "captures": {
+            "0": {
+              "name": "keyword.operator.other.canvas"
+            }
+          }
+        }
+      ]
+    },
+    "attribute": {
+      "begin": "\\w+:",
+      "end": "(?=,|%}|}}|\\|)",
+      "beginCaptures": {
+        "0": {
+          "name": "entity.other.attribute-name.canvas"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#value_expression"
+        }
+      ]
+    },
+    "filter": {
+      "match": "\\|\\s*((?![\\.0-9])[a-zA-Z0-9_-]+\\:?)\\s*",
+      "captures": {
+        "1": {
+          "name": "support.function.canvas"
+        }
+      }
+    },
+    "value_expression": {
+      "patterns": [
+        {
+          "match": "((?<=\\w\\:\\s)\\w+)",
+          "name": "variable.parameter.canvas"
+        },
+        {
+          "match": "(?<=\\s)(\\+|\\-|\\/|\\*)(?=\\s)",
+          "name": "invalid.illegal.filter.canvas"
+        },
+        {
+          "include": "#operator"
+        },
+        {
+          "include": "#number"
+        },
+        {
+          "include": "#string"
+        },
+        {
+          "include": "#variable_lookup"
+        }
+      ]
+    },
+    "variable_lookup": {
+      "patterns": [
+        {
+          "match": "((?<=\\w\\:\\s)\\w+)",
+          "name": "variable.parameter.canvas"
+        }
+      ]
+    }
+  }
+}

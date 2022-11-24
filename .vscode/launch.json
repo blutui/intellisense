@@ -2,12 +2,41 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Run Extension",
       "type": "extensionHost",
       "request": "launch",
-      "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
-      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}"
+      "name": "Launch Client",
+      "runtimeExecutable": "${execPath}",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceRoot}"
+      ],
+      "outFiles": [
+        "${workspaceRoot}/dist/**/*.js"
+      ],
+      "preLaunchTask": {
+        "type": "npm",
+        "script": "dev"
+      },
+      "sourceMaps": true,
+      "trace": true
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attact to Server",
+      "port": 6009,
+      "restart": true,
+      "outFiles": [
+        "${workspaceRoot}/dist/**/*.js",
+      ]
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Client + Server",
+      "configurations": [
+        "Launch Client",
+        "Attact to Server"
+      ]
     }
   ]
 }

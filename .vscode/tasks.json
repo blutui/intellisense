@@ -4,7 +4,14 @@
     {
       "type": "npm",
       "script": "watch",
-      "problemMatcher": ["$ts-webpack-watch", "$tslint-webpack-watch"],
+      "problemMatcher": {
+        "base": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^asset\\s",
+          "endsPattern": "compiled (successfully|with \\d+ error)"
+        }
+      },
       "isBackground": true,
       "presentation": {
         "reveal": "never"

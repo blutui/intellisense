@@ -1,0 +1,52 @@
+{
+  "The constant test checks if a variable has the exact same value as a constant": {
+    "prefix": "is constant",
+    "body": ["is constant('${1:SOME_CONST}')"],
+    "description": "The constant test checks if a variable has the exact same value as a constant."
+  },
+  "The defined test checks if a variable is defined in the current context": {
+    "prefix": "is defined",
+    "body": ["is defined"],
+    "description": "The defined test checks if a variable is defined in the current context."
+  },
+  "The 'is not defined' test checks if a variable is not defined in the current context": {
+    "prefix": "is not defined",
+    "body": ["is not defined"],
+    "description": "The defined test, negated, checks if a variable is not defined in the current context."
+  },
+  "The divisible by test checks if a variable is divisible by a number": {
+    "prefix": "is divisible by",
+    "body": ["is divisible by(${1:3})"],
+    "description": "The divisible by test checks if a variable is divisible by a number."
+  },
+  "The empty test checks if a variable is an empty string, an empty array, an empty hash, exactly false, or exactly null": {
+    "prefix": "is empty",
+    "body": ["is empty"],
+    "description": "The empty test checks if a variable is an empty string, an empty array, an empty hash, exactly false, or exactly null."
+  },
+  "The even test returns true if the given number is even": {
+    "prefix": "is even",
+    "body": ["is even"],
+    "description": "The even test returns true if the given number is even."
+  },
+  "The odd test returns true if the given number is odd": {
+    "prefix": "is odd",
+    "body": ["is odd"],
+    "description": "The odd test returns true if the given number is odd."
+  },
+  "The iterable test checks if a variable is an array or a traversable object": {
+    "prefix": "is iterable",
+    "body": ["is iterable"],
+    "description": "The iterable test checks if a variable is an array or a traversable object."
+  },
+  "The null test returns true if the variable is null. none is an alias for null": {
+    "prefix": "is null",
+    "body": ["is null"],
+    "description": "The null test returns true if the variable is null. `none` is an alias for `null`."
+  },
+  "The same as test checks if a variable is the same as another variable (strict comparison)": {
+    "prefix": "is same as",
+    "body": ["is same as(${1:false})"],
+    "description": "The same as test checks if a variable is the same as another variable, using a strict comparison."
+  }
+}

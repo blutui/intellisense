@@ -6,7 +6,9 @@
     "lib": ["es6"],
     "sourceMap": true,
     "rootDir": ".",
-    "strict": true
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "exclude": ["node_modules", ".vscode-test"]
 }

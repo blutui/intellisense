@@ -1,10 +1,10 @@
 {
-  "The abs filter returns the absolute value.": {
+  "The abs filter returns the absolute value": {
     "prefix": ["abs", "|abs"],
     "body": ["| abs"],
     "description": "The abs filter returns the absolute value."
   },
-  "The batch filter batches items by returning a list of lists with the given number of items. A second parameter can be provided and used to fill in missing items": {
+  "The batch filter batches items by returning a list of lists with the given number of items": {
     "prefix": ["batch", "|batch"],
     "body": ["| batch(${1:3}, '${2:No item}')"],
     "description": "The batch filter batches items by returning a list of lists with the given number of items. A second parameter can be provided and used to fill in missing items"
@@ -14,14 +14,14 @@
     "body": ["| capitalize"],
     "description": "The capitalize filter capitalizes a value. The first character will be uppercase, all others lowercase"
   },
-  "The column filter returns the values from a single column in the input array.": {
-    "prefix": "column",
+  "The column filter returns the values from a single column in the input array": {
+    "prefix": ["column", "|column"],
     "body": ["| column('${1:item}')"],
     "description": "The column filter returns the values from a single column in the input array."
   },
-  "The convert_encoding filter converts a string from one encoding to another. The first argument is the expected output charset and the second one is the input charset": {
-    "prefix": "convert_encoding",
-    "body": ["| convert_encoding('${1:UTF-8}', 'iso-2022-jp') "],
+  "The convert_encoding filter converts a string from one encoding to another": {
+    "prefix": ["convert_encoding", "|convert_encoding"],
+    "body": ["| convert_encoding('${1:UTF-8}', '${2:iso-2022-jp}')"],
     "description": "The convert_encoding filter converts a string from one encoding to another. The first argument is the expected output charset and the second one is the input charset"
   },
   "The date filter formats a date to a given format": {
@@ -30,19 +30,184 @@
     "description": "The date filter formats a date to a given format"
   },
   "The date_modify filter modifies a date with a given modifier string": {
-    "prefix": "date_modify",
-    "body": ["| date_modify('${1:+1 day}') | date('m/d/Y')"],
+    "prefix": ["date_modify", "|date_modify"],
+    "body": ["| date_modify('${1:+1 day}') | date('${2:m/d/Y}')"],
     "description": "The date_modify filter modifies a date with a given modifier string"
   },
-
+  "The default filter returns the passed default value if the value is undefined or empty": {
+    "prefix": ["default", "|default"],
+    "body": ["| default('${1:default value}')"],
+    "description": "The default filter returns the passed default value if the value is undefined or empty, otherwise the value of the variable."
+  },
+  "The escape filter escapes a string using strategies that depend on the context. Aliased as e": {
+    "prefix": ["escape", "|escape", "e"],
+    "body": ["| escape('${1|html,js,css,url,html_attr|}')"],
+    "description": "The escape filter escapes a string using strategies that depend on the context. The e filter is defined as an alias."
+  },
+  "The filter filter filters elements of a sequence or a mapping using an arrow function": {
+    "prefix": ["filter", "|filter"],
+    "body": ["| filter(${1:v} => ${1:v} > ${2:38})"],
+    "description": "The filter filter filters elements of a sequence or a mapping using an arrow function. The arrow function receives the value of the sequence or mapping"
+  },
+  "The first filter returns the first \"element\" of a sequence, a mapping, or a string": {
+    "prefix": ["first", "|first"],
+    "body": ["| first"],
+    "description": "The first filter returns the first \"element\" of a sequence, a mapping, or a string."
+  },
+  "The format filter formats a given string by replacing the placeholders": {
+    "prefix": ["format", "|format"],
+    "body": ["| format(${1:foo}, '${2:bar}')"],
+    "description": "The format filter formats a given string by replacing the placeholders."
+  },
+  "The group_by filter groups array items by a given key": {
+    "prefix": ["group_by", "|group_by"],
+    "body": ["| group_by('${1:key}')"],
+    "description": "The group_by filter groups array items by a given key."
+  },
+  "The image_tag filter generates a HTML img tag": {
+    "prefix": ["image_tag", "|image_tag"],
+    "body": ["| image_tag"],
+    "description": "The image_tag filter generates a HTML img tag. Combine it with image_url to generate a full img tag from an image field."
+  },
+  "The image_url filter generates a CDN URL for an image": {
+    "prefix": ["image_url", "|image_url"],
+    "body": ["| image_url({ width: ${1:280}, format: '${2:webp}' })"],
+    "description": "The image_url filter generates a CDN URL for an image. Accepts width, height, and format options."
+  },
+  "The join filter returns a string which is the concatenation of the items of a sequence": {
+    "prefix": ["join", "|join"],
+    "body": ["| join('${1:, }')"],
+    "description": "The join filter returns a string which is the concatenation of the items of a sequence."
+  },
+  "The json_encode filter returns the JSON representation of a value": {
+    "prefix": ["json_encode", "|json_encode"],
+    "body": ["| json_encode"],
+    "description": "The json_encode filter returns the JSON representation of a value."
+  },
+  "The keys filter returns the keys of an array": {
+    "prefix": ["keys", "|keys"],
+    "body": ["| keys"],
+    "description": "The keys filter returns the keys of an array."
+  },
+  "The last filter returns the last \"element\" of a sequence, a mapping, or a string": {
+    "prefix": ["last", "|last"],
+    "body": ["| last"],
+    "description": "The last filter returns the last \"element\" of a sequence, a mapping, or a string."
+  },
+  "The length filter returns the number of items of a sequence or mapping, or the length of a string": {
+    "prefix": ["length", "|length"],
+    "body": ["| length"],
+    "description": "The length filter returns the number of items of a sequence or mapping, or the length of a string."
+  },
+  "The lower filter converts a value to lowercase": {
+    "prefix": ["lower", "|lower"],
+    "body": ["| lower"],
+    "description": "The lower filter converts a value to lowercase."
+  },
+  "The map filter applies an arrow function to the elements of a sequence or a mapping": {
+    "prefix": ["map", "|map"],
+    "body": ["| map(${1:p} => ${1:p}.${2:name})"],
+    "description": "The map filter applies an arrow function to the elements of a sequence or a mapping."
+  },
+  "The merge filter merges an array with another array": {
+    "prefix": ["merge", "|merge"],
+    "body": ["| merge([${1:'apple', 'orange'}])"],
+    "description": "The merge filter merges an array with another array."
+  },
+  "The nl2br filter inserts HTML line breaks before all newlines in a string": {
+    "prefix": ["nl2br", "|nl2br"],
+    "body": ["| nl2br"],
+    "description": "The nl2br filter inserts HTML line breaks before all newlines in a string."
+  },
+  "The number_format filter formats numbers": {
+    "prefix": ["number_format", "|number_format"],
+    "body": ["| number_format(${1:2}, '${2:.}', '${3:,}')"],
+    "description": "The number_format filter formats numbers. Takes the number of decimal places, decimal point, and thousands separator."
+  },
+  "The raw filter marks the value as being \"safe\", so it will not be escaped": {
+    "prefix": ["raw", "|raw"],
+    "body": ["| raw"],
+    "description": "The raw filter marks the value as being \"safe\". In an environment with automatic escaping enabled this variable will not be escaped."
+  },
+  "The reading_time filter estimates the total reading time of a value": {
+    "prefix": ["reading_time", "|reading_time"],
+    "body": ["| reading_time"],
+    "description": "The reading_time filter estimates the total reading time of a value. Default words_per_minute is 250."
+  },
+  "The reduce filter iteratively reduces a sequence or a mapping to a single value using an arrow function": {
+    "prefix": ["reduce", "|reduce"],
+    "body": ["| reduce((${1:carry}, ${2:v}) => ${1:carry} + ${2:v})"],
+    "description": "The reduce filter iteratively reduces a sequence or a mapping to a single value using an arrow function."
+  },
+  "The replace filter formats a given string by replacing the placeholders": {
+    "prefix": ["replace", "|replace"],
+    "body": ["| replace({'${1:%this%}': ${2:foo}, '${3:%that%}': '${4:bar}'})"],
+    "description": "The replace filter formats a given string by replacing the placeholders."
+  },
+  "The reverse filter reverses a sequence, a mapping, or a string": {
+    "prefix": ["reverse", "|reverse"],
+    "body": ["| reverse"],
+    "description": "The reverse filter reverses a sequence, a mapping, or a string."
+  },
+  "The round filter rounds a number to a given precision": {
+    "prefix": ["round", "|round"],
+    "body": ["| round(${1:0}, '${2|common,ceil,floor|}')"],
+    "description": "The round filter rounds a number to a given precision."
+  },
+  "The slice filter extracts a slice of a sequence, a mapping, or a string": {
+    "prefix": ["slice", "|slice"],
+    "body": ["| slice(${1:0}, ${2:length})"],
+    "description": "The slice filter extracts a slice of a sequence, a mapping, or a string."
+  },
   "The slug filter returns a URL friendly version of the value": {
     "prefix": ["slug", "|slug"],
     "body": ["| slug"],
     "description": "The slug filter returns a URL friendly version of the value"
   },
-  "The filter filter filters elements of a sequence or a mapping using an arrow function. The arrow function receives the value of the sequence or mapping": {
-    "prefix": "filter",
-    "body": ["| filter(v => v > ${1:34})"],
-    "description": "The filter filter filters elements of a sequence or a mapping using an arrow function. The arrow function receives the value of the sequence or mapping"
+  "The sort filter sorts an array": {
+    "prefix": ["sort", "|sort"],
+    "body": ["| sort"],
+    "description": "The sort filter sorts an array. Optionally accepts an arrow function to customize the comparison."
+  },
+  "The spaceless filter removes whitespace between HTML tags": {
+    "prefix": ["spaceless", "|spaceless"],
+    "body": ["| spaceless"],
+    "description": "Use the spaceless filter to remove whitespace between HTML tags."
+  },
+  "The split filter splits a string by the given delimiter and returns a list of strings": {
+    "prefix": ["split", "|split"],
+    "body": ["| split('${1:,}')"],
+    "description": "The split filter splits a string by the given delimiter and returns a list of strings."
+  },
+  "The striptags filter strips SGML/XML tags and replaces adjacent whitespace by one space": {
+    "prefix": ["striptags", "|striptags"],
+    "body": ["| striptags"],
+    "description": "The striptags filter strips SGML/XML tags and replace adjacent whitespace by one space."
+  },
+  "The title filter returns a titlecased version of the value": {
+    "prefix": ["title", "|title"],
+    "body": ["| title"],
+    "description": "The title filter returns a titlecased version of the value."
+  },
+  "The trim filter strips whitespace (or other characters) from the beginning and end of a string": {
+    "prefix": ["trim", "|trim"],
+    "body": ["| trim"],
+    "description": "The trim filter strips whitespace (or other characters) from the beginning and end of a string."
+  },
+  "The upper filter converts a value to uppercase": {
+    "prefix": ["upper", "|upper"],
+    "body": ["| upper"],
+    "description": "The upper filter converts a value to uppercase."
+  },
+  "The url_encode filter percent encodes a given string as URL segment or an array as query string": {
+    "prefix": ["url_encode", "|url_encode"],
+    "body": ["| url_encode"],
+    "description": "The url_encode filter percent encodes a given string as URL segment or an array as query string."
+  },
+
+  "DEPRECATED: sort_by sorts an array by a given key. Use the sort filter instead": {
+    "prefix": ["sort_by", "|sort_by"],
+    "body": ["| sort_by('${1:key}', ${2:false})"],
+    "description": "DEPRECATED: sort_by sorts an array by a given key. Alternative: the sort filter."
   }
 }

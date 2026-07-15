@@ -1,53 +1,70 @@
-import fetch from 'node-fetch'
 import * as vscode from 'vscode'
 import { Uri, ExtensionContext, workspace as Workspace } from 'vscode'
 
-const CONFIG_FILE_GLOB = '{courier}.{json}'
+const CONFIG_FILE_GLOB = 'courier.json'
+
+interface CourierConfig {
+  handle?: string
+  site?: string
+  cassette?: string
+  // Not part of the official courier.json schema (the Courier CLI stores your
+  // access token in the OS keychain), but you can add it to your local,
+  // gitignored courier.json to enable collection/form autocomplete here.
+  token?: string
+}
+
+interface CollectionField {
+  name: string
+}
+
+interface CollectionSummary {
+  id: string
+  handle: string
+}
+
+interface CollectionDetail {
+  handle: string
+  fields: CollectionField[]
+}
+
+interface FormField {
+  name: string
+}
+
+interface FormSummary {
+  handle: string
+  template: string
+  fields?: FormField[]
+}
 
 export async function activate(context: ExtensionContext) {
-  console.log(Uri.parse(`command:editor.action.addCommentLine`).toString())
-
-  let watcher = Workspace.createFileSystemWatcher(
+  const watcher = Workspace.createFileSystemWatcher(
     `**/${CONFIG_FILE_GLOB}`,
     false,
-    true,
+    false,
     true
   )
 
-  watcher.onDidChange((uri) => {
-    console.log(uri)
-  })
+  watcher.onDidChange(() => refreshProjectData())
+  watcher.onDidCreate(() => refreshProjectData())
 
-  let collectionHandle: string[]
-  let collectionID: string[]
-  let collectionVar: string[]
-  let collectionVarF: string[]
+  let collectionHandle: string[] = []
+  let collectionVarF: string[] = []
 
-  let formHandle: string[]
-
-  let formVarf: string[]
-
-  let collectionObjects: object[]
-  let FormObjects: object[]
+  let formHandle: string[] = []
+  let formVarf: string[] = []
 
   const auto = vscode.languages.registerCompletionItemProvider('html', {
-    provideCompletionItems(
-      document: vscode.TextDocument,
-      position: vscode.Position,
-      token: vscode.CancellationToken,
-      context: vscode.CompletionContext
-    ) {
-      disposable()
-
+    provideCompletionItems() {
       const cmsCol = new vscode.CompletionItem('cms.collection()')
       cmsCol.insertText = new vscode.SnippetString(
-        "cms.collection('${1|" + collectionHandle.join() + "|}')"
+        "cms.collection('${1|" + (collectionHandle.join() || ' ') + "|}')"
       )
       cmsCol.documentation = new vscode.MarkdownString('Handle')
 
       const cmsForm = new vscode.CompletionItem('cms.form()')
       cmsForm.insertText = new vscode.SnippetString(
-        "cms.form('${1|" + formHandle.join() + "|}')"
+        "cms.form('${1|" + (formHandle.join() || ' ') + "|}')"
       )
       cmsForm.documentation = new vscode.MarkdownString('Handle')
 
@@ -69,66 +86,35 @@ export async function activate(context: ExtensionContext) {
     },
   })
 
+  const fieldCompletionProvider = (suffix: string) => ({
+    provideCompletionItems(
+      document: vscode.TextDocument,
+      position: vscode.Position
+    ) {
+      const linePrefix = document
+        .lineAt(position)
+        .text.substr(0, position.character)
+      if (!linePrefix.endsWith(suffix)) {
+        return undefined
+      }
+
+      return collectionVarF.map(
+        (field) =>
+          new vscode.CompletionItem(field, vscode.CompletionItemKind.Method)
+      )
+    },
+  })
+
   const collectionAuto = vscode.languages.registerCompletionItemProvider(
     'html',
-    {
-      provideCompletionItems(
-        document: vscode.TextDocument,
-        position: vscode.Position
-      ) {
-        const linePrefix = document
-          .lineAt(position)
-          .text.substr(0, position.character)
-        if (!linePrefix.endsWith('entry.')) {
-          return undefined
-        }
-        const colComplete: vscode.ProviderResult<
-          vscode.CompletionItem[] | vscode.CompletionList<vscode.CompletionItem>
-        > = []
-
-        var i = 0
-        collectionVarF.forEach((element) => {
-          colComplete[i] = new vscode.CompletionItem(
-            element,
-            vscode.CompletionItemKind.Method
-          )
-          i++
-        })
-        return colComplete
-      },
-    },
-    '.' // triggered whenever a '.' is being typed
+    fieldCompletionProvider('entry.'),
+    '.'
   )
 
   const collectionAutoI = vscode.languages.registerCompletionItemProvider(
     'html',
-    {
-      provideCompletionItems(
-        document: vscode.TextDocument,
-        position: vscode.Position
-      ) {
-        const linePrefix = document
-          .lineAt(position)
-          .text.substr(0, position.character)
-        if (!linePrefix.endsWith('item.')) {
-          return undefined
-        }
-        const colComplete: vscode.ProviderResult<
-          vscode.CompletionItem[] | vscode.CompletionList<vscode.CompletionItem>
-        > = []
-
-        var i = 0
-        collectionVarF.forEach((element) => {
-          colComplete[i] = new vscode.CompletionItem(
-            element,
-            vscode.CompletionItemKind.Method
-          )
-          i++
-        })
-        return colComplete
-      },
-    },
-    '.' // triggered whenever a '.' is being typed
+    fieldCompletionProvider('item.'),
+    '.'
   )
 
   const formAuto = vscode.languages.registerCompletionItemProvider(
@@ -144,119 +130,107 @@ export async function activate(context: ExtensionContext) {
         if (!linePrefix.endsWith('form.')) {
           return undefined
         }
-        const colComplete: vscode.ProviderResult<
-          vscode.CompletionItem[] | vscode.CompletionList<vscode.CompletionItem>
-        > = []
 
-        var i = 0
-        formVarf.forEach((element) => {
-          colComplete[i] = new vscode.CompletionItem(
-            element,
-            vscode.CompletionItemKind.Method
-          )
-          i++
-        })
-
-        return colComplete
+        return formVarf.map(
+          (field) =>
+            new vscode.CompletionItem(field, vscode.CompletionItemKind.Method)
+        )
       },
     },
     '.' // triggered whenever a '.' is being typed
   )
 
-  const disposable = async () => {
-    if (vscode.workspace.workspaceFolders !== undefined) {
-      let wf = vscode.workspace.workspaceFolders[0].uri.path
-      let uri = Uri.file(wf + '/courier.json')
-      vscode.workspace.openTextDocument(uri).then(async (document) => {
-        let text = document.getText()
-        let website = JSON.parse(text)
+  // Fetches collection and form handles/fields for the active workspace from
+  // the Blutui Admin API (https://dev.blutui.com/docs), so `entry.`, `item.`
+  // and `form.` can be autocompleted against the real fields of the project.
+  const refreshProjectData = async () => {
+    if (!vscode.workspace.workspaceFolders) {
+      return
+    }
 
-        let url = 'https://' + website.site + '/api'
+    const wf = vscode.workspace.workspaceFolders[0].uri.fsPath
+    const uri = Uri.file(wf + '/' + CONFIG_FILE_GLOB)
 
-        let urlL = url + '/collections'
-        const response = await fetch(urlL, {
-          method: 'GET',
-          headers: {
-            Authorization: website.token,
-          },
-        })
-        const myJson = await response.json() //extract JSON from the http response
-        collectionHandle = myJson.map((a: any) => a.handle)
-        collectionID = myJson.map((a: any) => a.id)
-        const collect = []
-        const collectOp: string[] = []
+    let project: CourierConfig
+    try {
+      const document = await vscode.workspace.openTextDocument(uri)
+      project = JSON.parse(document.getText())
+    } catch {
+      // No courier.json in this workspace (yet).
+      return
+    }
 
-        for (const i of collectionID) {
-          let urlID = urlL + '/' + i
-          const r = await fetch(urlID, {
-            method: 'GET',
-            headers: {
-              Authorization: website.token,
-            },
-          })
-          const col = await r.json()
-          collectionVar = await col.fields.map((a: any) => a.name)
-          let collection = {
-            handle: col.handle,
-            fields: collectionVar,
-          }
-          collect.push(collection)
-        }
-        collectionObjects = collect
+    if (!project.handle || !project.token) {
+      // Autocomplete for entry./item./form. requires an access token to
+      // query the Admin API. The Courier CLI keeps your token in the OS
+      // keychain rather than courier.json, so add a `token` field to your
+      // local (gitignored) courier.json to enable this feature.
+      return
+    }
 
-        collect.forEach((element) => {
-          element.fields.forEach((el) => {
-            if (collectOp.indexOf(el) == -1) {
-              collectOp.push(el)
-            }
-          })
-        })
-        collectionVarF = collectOp
+    const site = project.site || `${project.handle}.blutui.com`
+    const baseUrl = `https://${site}/admin/api`
+    const headers = {
+      Authorization: `Bearer ${project.token}`,
+    }
 
-        let urlF = url + '/forms'
-        const g = await fetch(urlF, {
-          method: 'GET',
-          headers: {
-            Authorization: website.token,
-          },
-        })
-        const j = await g.json()
-
-        let form = await j.map((a: any) => a.handle)
-        let formL = await j.map((a: any) => a.template)
-        let formB = await j.map((a: any) => a.fields.map((b: any) => b.name))
-
-        let urlA = url + '/pages'
-        const a = await fetch(urlA, {
-          method: 'GET',
-          headers: {
-            Authorization: website.token,
-          },
-        })
-        const aj = await a.json()
-        const f = []
-        for (let index = 0; index < form.length; index++) {
-          let formobj = {
-            handle: form[index],
-            location: formL[index],
-            fields: formB[index],
-          }
-          f.push(formobj)
-        }
-        FormObjects = f
-        const formOp: string[] = []
-
-        formHandle = FormObjects.map((a: any) => a.handle)
-
-        f.forEach((element) => {
-          element.fields.forEach((el: string) => {
-            if (formOp.indexOf(el) == -1) {
-              formOp.push(el)
-            }
-          })
-        })
-        formVarf = formOp
+    try {
+      const collectionsResponse = await fetch(`${baseUrl}/collections`, {
+        method: 'GET',
+        headers,
       })
+      const collectionsJson = (await collectionsResponse.json()) as {
+        data?: CollectionSummary[]
+      }
+      const collections = collectionsJson.data ?? []
+
+      collectionHandle = collections.map((c) => c.handle)
+
+      const collect: CollectionDetail[] = []
+      for (const summary of collections) {
+        const detailResponse = await fetch(
+          `${baseUrl}/collections/${summary.id}`,
+          { method: 'GET', headers }
+        )
+        const detail = (await detailResponse.json()) as CollectionDetail
+        collect.push({
+          handle: detail.handle,
+          fields: detail.fields ?? [],
+        })
+      }
+
+      const collectionFields: string[] = []
+      collect.forEach((collection) => {
+        collection.fields.forEach((field) => {
+          if (collectionFields.indexOf(field.name) === -1) {
+            collectionFields.push(field.name)
+          }
+        })
+      })
+      collectionVarF = collectionFields
+
+      const formsResponse = await fetch(`${baseUrl}/forms?expand[]=fields`, {
+        method: 'GET',
+        headers,
+      })
+      const formsJson = (await formsResponse.json()) as {
+        data?: FormSummary[]
+      }
+      const forms = formsJson.data ?? []
+
+      formHandle = forms.map((f) => f.handle)
+
+      const formFields: string[] = []
+      forms.forEach((f) => {
+        ;(f.fields ?? []).forEach((field) => {
+          if (formFields.indexOf(field.name) === -1) {
+            formFields.push(field.name)
+          }
+        })
+      })
+      formVarf = formFields
+    } catch (error) {
+      console.error('Blutui IntelliSense: failed to load project data', error)
     }
   }
 
@@ -264,8 +238,9 @@ export async function activate(context: ExtensionContext) {
     vscode.window.showInformationMessage('I do work')
   })
 
-  disposable()
+  refreshProjectData()
   context.subscriptions.push(
+    watcher,
     auto,
     collectionAuto,
     collectionAutoI,

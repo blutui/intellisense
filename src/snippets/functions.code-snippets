@@ -1,69 +1,58 @@
 {
-  "cms_audio function is used to define a slot for CMS driven audio content, editable using Blutui Canopy": {
-    "prefix": "cms_audio",
-    "body": ["{{ cms_audio('${1:audio}') }}"],
-    "description": "cms_audio function is used to define a slot for CMS driven audio content, editable using Blutui Canopy"
+  "agent function returns information about the current device (browser, platform, mobile detection, etc.)": {
+    "prefix": "agent",
+    "body": ["{{ agent().${1:isMobile}() }}"],
+    "description": "The agent function allows you to get information about the current device."
   },
-  "cms_button function is used to define a slot for CMS driven button content, editable using Blutui Canopy": {
-    "prefix": "cms_button",
-    "body": ["{{ cms_button('${1:cta-hero}') }}"],
-    "description": "cms_button function is used to define a slot for CMS driven button content, editable using Blutui Canopy"
+  "asset returns the public path of the given asset path. For published projects this is the CDN path": {
+    "prefix": "asset",
+    "body": ["{{ asset('${1:images/header-background.png}') }}"],
+    "description": "The asset function returns the public path for the given asset path."
   },
-  "cms_code function is used to define a slot for CMS driven code content, editable using Blutui Canopy": {
-    "prefix": "cms_code",
-    "body": ["{{ cms_code('${1:example-code}') }}"],
-    "description": "cms_code function is used to define a slot for CMS driven code content, editable using Blutui Canopy"
+  "attribute accesses a \"dynamic\" attribute of a variable": {
+    "prefix": "attribute",
+    "body": ["{{ attribute(${1:object}, ${2:method}) }}"],
+    "description": "The attribute function can be used to access a \"dynamic\" attribute of a variable."
   },
-  "cms_embed function is used to define a slot for CMS driven embed content, editable using Blutui Canopy": {
-    "prefix": "cms_embed",
-    "body": ["{{ cms_embed('${1:hero-video}') }}"],
-    "description": "cms_embed function is used to define a slot for CMS driven embed content, editable using Blutui Canopy"
+  "block prints a block multiple times, or a block from another template": {
+    "prefix": "block",
+    "body": ["{{ block('${1:title}') }}"],
+    "description": "When a template uses inheritance and you want to print a block multiple times, use the block function."
   },
-  "cms_heading function is used to define a slot for CMS driven heading content, editable using Blutui Canopy": {
-    "prefix": "cms_heading",
-    "body": ["{{ cms_heading('${1:hero-heading}') }}"],
-    "description": "cms_heading function is used to define a slot for CMS driven heading content, editable using Blutui Canopy"
+  "canopy.blocks renders a block area containing the Canopy Blocks managed in the Canopy editor": {
+    "prefix": ["canopy.blocks", "canopy"],
+    "body": ["{{ canopy.blocks('${1:main}') }}"],
+    "description": "The canopy.blocks function renders a block area containing the Canopy Blocks managed in the Canopy editor."
   },
-  "cms_image function is used to define a slot for CMS driven image content, editable using Blutui Canopy": {
-    "prefix": "cms_image",
-    "body": ["{{ cms_image('${1:hero-image}') }}"],
-    "description": "cms_image function is used to define a slot for CMS driven image content, editable using Blutui Canopy"
+  "canopy.blocks with a shared area, for content shared across the whole site (e.g. footers)": {
+    "prefix": "canopy.blocks.shared",
+    "body": ["{{ canopy.blocks('${1:footer}', { shared: true }) }}"],
+    "description": "Render a block area shared across the whole site instead of scoped to the current page."
   },
-  "cms_list function is used to define a slot for CMS driven list content, editable using Blutui Canopy": {
-    "prefix": "cms_list",
-    "body": ["{{ cms_list('${1:shooping-list}') }}"],
-    "description": "cms_list function is used to define a slot for CMS driven list content, editable using Blutui Canopy"
+  "canopy.render renders a Canopy Block template directly, without content from the Canopy editor": {
+    "prefix": "canopy.render",
+    "body": ["{{ canopy.render('${1:hero}') }}"],
+    "description": "The canopy.render function renders a Canopy Block template directly, without any content from the Canopy editor."
   },
-  "cms_quote function is used to define a slot for CMS driven blockquote content, editable using Blutui Canopy": {
-    "prefix": "cms_quote",
-    "body": ["{{ cms_quote('${1:quote}') }}"],
-    "description": "cms_quote function is used to define a slot for CMS driven blockquote content, editable using Blutui Canopy"
+  "canopy.head outputs the head sections of the Canopy Blocks rendered in a block area": {
+    "prefix": "canopy.head",
+    "body": ["{{ canopy.head('${1:main}') }}"],
+    "description": "The canopy.head function outputs the head sections of the Canopy Blocks rendered in a block area."
   },
-  "cms_text function is used to define a slot for CMS driven text content, editable using Blutui Canopy": {
-    "prefix": "cms_text",
-    "body": ["{{ cms_text('${1:hero-content}') }}"],
-    "description": "cms_text function is used to define a slot for CMS driven text content, editable using Blutui Canopy"
-  },
-  "cms_video function is used to define a slot for CMS driven video content, editable using Blutui Canopy": {
-    "prefix": "cms_video",
-    "body": ["{{ cms_video('${1:hero}') }}"],
-    "description": "cms_video function is used to define a slot for CMS driven video content, editable using Blutui Canopy"
-  },
-
-  "The dump function dumps information about a variable. This is mostly useful to check the output of the provided variable": {
-    "prefix": "dump",
-    "body": ["{{ dump('${1:user}') }}"],
-    "description": "The dump function dumps information about a variable. This is mostly useful to check the output of the provided variable"
+  "canopy.scripts outputs the scripts sections of the Canopy Blocks rendered in a block area": {
+    "prefix": "canopy.scripts",
+    "body": ["{{ canopy.scripts('${1:main}') }}"],
+    "description": "The canopy.scripts function outputs the scripts sections of the Canopy Blocks rendered in a block area."
   },
   "cms.blog function returns the given blog and its posts": {
     "prefix": "cms.blog",
-    "body": ["{{ cms.blog('${1:blog}') }}"],
+    "body": ["{{ cms.blog('${1:news}') }}"],
     "description": "cms.blog function returns the given blog and its posts"
   },
-  "cms.collection function returns the given collections entries": {
+  "cms.collection function returns the given collection's entries": {
     "prefix": "cms.collection",
     "body": ["{{ cms.collection('${1:staff}') }}"],
-    "description": "cms.collection function returns the given collections entries"
+    "description": "cms.collection function returns the given collection's entries"
   },
   "cms.form function returns the given form": {
     "prefix": "cms.form",
@@ -75,10 +64,113 @@
     "body": ["{{ cms.menu('${1:primary}') }}"],
     "description": "cms.menu function returns the given menu"
   },
+  "constant returns the constant value for a given string": {
+    "prefix": "constant",
+    "body": ["{{ constant('${1:DATE_W3C}') }}"],
+    "description": "The constant function returns the constant value for a given string."
+  },
+  "cycle cycles on an array of values": {
+    "prefix": "cycle",
+    "body": ["{{ cycle([${1:'odd', 'even'}], ${2:loop.index0}) }}"],
+    "description": "The cycle function cycles on an array of values."
+  },
+  "date converts an argument to a date to allow date comparison": {
+    "prefix": "date",
+    "body": ["date('${1:now}')"],
+    "description": "The date function converts an argument to a date to allow date comparison."
+  },
+  "dump dumps information about a variable, useful for debugging": {
+    "prefix": "dump",
+    "body": ["{{ dump(${1:user}) }}"],
+    "description": "The dump function dumps information about a variable. This is mostly useful to check the output of the provided variable"
+  },
+  "honeypot_field renders the required HTML to protect a form from robots": {
+    "prefix": "honeypot_field",
+    "body": ["{{ honeypot_field() }}"],
+    "description": "The honeypot_field function renders the required HTML to protect your form from robots."
+  },
+  "include returns the rendered content of a template": {
+    "prefix": "include",
+    "body": ["{{ include('${1:snippets/icon-search}') }}"],
+    "description": "The include function returns the rendered content of a template."
+  },
+  "max returns the biggest value of a sequence or a set of values": {
+    "prefix": "max",
+    "body": ["{{ max(${1:1, 3, 2}) }}"],
+    "description": "The max function returns the biggest value of a sequence or a set of values."
+  },
+  "min returns the lowest value of a sequence or a set of values": {
+    "prefix": "min",
+    "body": ["{{ min(${1:1, 3, 2}) }}"],
+    "description": "The min function returns the lowest value of a sequence or a set of values."
+  },
+  "parent renders the contents of the parent block when overriding a block": {
+    "prefix": "parent",
+    "body": ["{{ parent() }}"],
+    "description": "When a template uses inheritance, it's possible to render the contents of the parent block when overriding a block by using the parent function."
+  },
+  "random returns a random value depending on the supplied parameter type": {
+    "prefix": "random",
+    "body": ["{{ random(${1:['apple', 'orange', 'citrus']}) }}"],
+    "description": "The random function returns a random value depending on the supplied parameter type."
+  },
+  "range returns a list containing an arithmetic progression of integers": {
+    "prefix": "range",
+    "body": ["{% for ${1:i} in range(${2:0}, ${3:3}) %}", "  $0", "{% endfor %}"],
+    "description": "The range function returns a list containing an arithmetic progression of integers."
+  },
+  "recaptcha renders the required elements for a reCAPTCHA component": {
+    "prefix": "recaptcha",
+    "body": ["{{ recaptcha() }}"],
+    "description": "The recaptcha function renders the required elements for a recaptcha component."
+  },
+  "source returns the content of a template without rendering it": {
+    "prefix": "source",
+    "body": ["{{ source('${1:template.html}') }}"],
+    "description": "The source function returns the content of a template without rendering it."
+  },
 
-  "asset returns the public path of the given asset path (which can be a CSS file, a JavaScript file, an image path, etc.). For projects that are published, the asset function returns the CDN path of the given asset path": {
-    "prefix": "asset",
-    "body": ["{{ asset('${1:file-location}') }}"],
-    "description": "asset returns the public path of the given asset path (which can be a CSS file, a JavaScript file, an image path, etc.). For projects that are published, the asset function returns the CDN path of the given asset path"
+  "DEPRECATED: cms_button defines a button component editable in the (legacy) Canopy editor. Use Canopy Blocks instead": {
+    "prefix": "cms_button",
+    "body": [
+      "{{ cms_button('${1:mybutton}', { text: '${2:Click me}', url: '${3:https://example.com}', class: '${4:}', opens_new_tab: ${5:false} }) }}"
+    ],
+    "description": "DEPRECATED: cms_button is part of the legacy Canopy elements, superseded by Canopy Blocks."
+  },
+  "DEPRECATED: cms_code defines a code component editable in the (legacy) Canopy editor. Use Canopy Blocks instead": {
+    "prefix": "cms_code",
+    "body": ["{{ cms_code('${1:mycode}', { value: '${2:}', class: '${3:}' }) }}"],
+    "description": "DEPRECATED: cms_code is part of the legacy Canopy elements, superseded by Canopy Blocks."
+  },
+  "DEPRECATED: cms_heading defines a heading component editable in the (legacy) Canopy editor. Use Canopy Blocks instead": {
+    "prefix": "cms_heading",
+    "body": [
+      "{{ cms_heading('${1:myheading}', { element: '${2:h2}', value: '${3:Welcome}', class: '${4:}' }) }}"
+    ],
+    "description": "DEPRECATED: cms_heading is part of the legacy Canopy elements, superseded by Canopy Blocks."
+  },
+  "DEPRECATED: cms_image defines an image component editable in the (legacy) Canopy editor. Use Canopy Blocks instead": {
+    "prefix": "cms_image",
+    "body": [
+      "{{ cms_image('${1:myimage}', { url: '${2:}', alt_text: '${3:}', class: '${4:}' }) }}"
+    ],
+    "description": "DEPRECATED: cms_image is part of the legacy Canopy elements, superseded by Canopy Blocks."
+  },
+  "DEPRECATED: cms_list defines a list component editable in the (legacy) Canopy editor. Use Canopy Blocks instead": {
+    "prefix": "cms_list",
+    "body": [
+      "{{ cms_list('${1:mylist}', { ordered: ${2:false}, items: [${3:'Item 1', 'Item 2'}], class: '${4:}' }) }}"
+    ],
+    "description": "DEPRECATED: cms_list is part of the legacy Canopy elements, superseded by Canopy Blocks."
+  },
+  "DEPRECATED: cms_quote defines a blockquote component editable in the (legacy) Canopy editor. Use Canopy Blocks instead": {
+    "prefix": "cms_quote",
+    "body": ["{{ cms_quote('${1:myquote}', { value: '${2:}', cite: '${3:}', class: '${4:}' }) }}"],
+    "description": "DEPRECATED: cms_quote is part of the legacy Canopy elements, superseded by Canopy Blocks."
+  },
+  "DEPRECATED: cms_text defines a text component editable in the (legacy) Canopy editor. Use Canopy Blocks instead": {
+    "prefix": "cms_text",
+    "body": ["{{ cms_text('${1:mytext}', { value: '${2:}', class: '${3:}' }) }}"],
+    "description": "DEPRECATED: cms_text is part of the legacy Canopy elements, superseded by Canopy Blocks."
   }
 }

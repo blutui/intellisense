@@ -116,52 +116,49 @@
     ],
     "description": "Google Maps Setting File"
   },
-  "Call collection": {
+  "LEGACY: renders a collection using a given template, use cms.collection for new projects": {
     "prefix": "collection",
     "body": [
       "{{ collection(\"${1:collection-name}\", \"collections/${2:collection-file}\") }}"
     ],
-    "description": "Call collection"
+    "description": "LEGACY: renders a collection using a given template. Prefer the cms.collection function for new projects."
   },
-  "Call form": {
+  "LEGACY: renders a form using a given template, use cms.form for new projects": {
     "prefix": "form",
     "body": ["{{ form(\"${1:form-name}\", \"forms/${2:form-file}\") }}"],
-    "description": "Call form"
+    "description": "LEGACY: renders a form using a given template. Prefer the cms.form function for new projects."
   },
-  "Auto link new page": {
+  "Auto link new page, extending a layout": {
     "prefix": "!page",
     "body": [
-      "{% extends 'templates/${1:default}' %}",
+      "{% extends 'layouts/${1:default}' %}",
       "",
       "{% block body %}",
-      "",
+      "  $0",
       "{% endblock %}"
     ],
     "description": "Auto link new page"
   },
-  "Auto template page creation": {
-    "prefix": "!template",
+  "Auto layout creation with Canopy Blocks head/main/scripts wiring": {
+    "prefix": "!layout",
     "body": [
+      "<!DOCTYPE html>",
       "<html lang=\"en\">",
       "<head>",
-      "    {% include 'includes/head' %}",
+      "    <title>{% block title %}${1:My Site}{% endblock %}</title>",
+      "    {{ canopy.head('main') }}",
       "</head>",
       "",
       "<body>",
-      "    {% include 'includes/header' %}",
-      "    {% block body %}{% endblock %}",
-      "    {% include 'includes/footer' %}",
-      "    {% include 'includes/scripts' %}",
+      "    {% block body %}",
+      "      {{ canopy.blocks('main') }}",
+      "    {% endblock %}",
+      "    {{ canopy.scripts('main') }}",
       "</body>",
       "",
       "</html>",
       ""
     ],
-    "description": "Auto template page creation"
-  },
-  "include": {
-    "prefix": "!include",
-    "body": ["{{ include('${1:assets/logo.html}') }}"],
-    "description": "include"
+    "description": "Auto layout page creation, wired up to render Canopy Blocks for the main block area"
   }
 }

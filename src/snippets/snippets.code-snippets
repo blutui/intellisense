@@ -1,46 +1,133 @@
 {
-  "for-collection": {
-    "prefix": "!for-collections",
-    "body": [
-      "{% for ${1:entry} in collection.entries|sort_by('sort-order') %}",
-      "",
-      "{% endfor %} "
-    ],
-    "description": "for-collection"
-  },
   "The apply tag allows you to apply Canvas filters on a block of template data": {
     "prefix": ["!apply", "{% apply %}", "apply"],
     "body": ["{% apply ${1:upper} %}", "  $0", "{% endapply %}"],
     "description": "The apply tag allows you to apply Canvas filters on a block of template data"
   },
-  "The do tag works exactly like the regular variable expression ({{ ... }}) just that it doesnt print anything:": {
+  "Autoescaping is turned on by default. Mark a section of a template to be escaped or not with the autoescape tag": {
+    "prefix": ["!autoescape", "{% autoescape %}", "autoescape"],
+    "body": ["{% autoescape %}", "  $0", "{% endautoescape %}"],
+    "description": "Whether automatic escaping is enabled or not, you can mark a section of a template to be escaped or not by using the autoescape tag"
+  },
+  "Blocks are used for inheritance and act as placeholders and replacements at the same time": {
+    "prefix": ["!block", "{% block %}", "block"],
+    "body": ["{% block ${1:content} %}", "  $0", "{% endblock %}"],
+    "description": "Blocks are used for inheritance and act as placeholders and replacements at the same time. Overridden by a child template with `extends`."
+  },
+  "canopy defines a Canopy Block template with config, template, head and scripts sections": {
+    "prefix": ["!canopy", "{% canopy %}", "canopy"],
+    "body": [
+      "{% canopy config %}",
+      "{",
+      "    \"title\": \"${1:Hero}\",",
+      "    \"name\": \"${2:hero}\",",
+      "    \"settings\": [",
+      "        { \"name\": \"${3:heading}\", \"type\": \"heading\", \"default\": { \"value\": \"${4:Welcome}\", \"element\": \"h1\" } }",
+      "    ]",
+      "}",
+      "{% endcanopy %}",
+      "",
+      "{% canopy template %}",
+      "<section>",
+      "  <{{ settings.${3:heading}.element }}>{{ settings.${3:heading}.value }}</{{ settings.${3:heading}.element }}>",
+      "  $0",
+      "</section>",
+      "{% endcanopy %}"
+    ],
+    "description": "Block templates for the Canopy editor live in views/canopy/*.canvas and are made up of config, template, head, and scripts sections wrapped in {% canopy %}...{% endcanopy %}."
+  },
+  "The deprecated tag generates a deprecation notice where it's used in a template": {
+    "prefix": ["!deprecated", "{% deprecated %}", "deprecated"],
+    "body": ["{% deprecated '${1:This template is deprecated, use \"other.html\" instead.}' %}"],
+    "description": "Canvas generates a deprecation notice where the deprecated tag is used in a template. Deprecation notices are silenced by default."
+  },
+  "The do tag works exactly like the regular variable expression ({{ ... }}), it just doesn't print anything": {
     "prefix": ["!do", "{% do %}", "do"],
     "body": ["{% do ${1:1} + ${2:2} %}"],
     "description": "The do tag works exactly like the regular variable expression ({{ ... }}) just that it doesnt print anything:"
   },
-  "The if statement in Canvas is comparable with the if statements of many popular languages.": {
+  "The embed tag combines the behaviour of include and extends": {
+    "prefix": ["!embed", "{% embed %}", "embed"],
+    "body": [
+      "{% embed '${1:teasers_skeleton.html}' %}",
+      "  {% block ${2:left_teaser} %}",
+      "    $0",
+      "  {% endblock %}",
+      "{% endembed %}"
+    ],
+    "description": "The embed tag allows you to include another template's contents, like include does, but also allows you to override any block defined inside the included template, like when extending a template."
+  },
+  "The extends tag can be used to extend a template from another one": {
+    "prefix": ["!extends", "{% extends %}", "extends"],
+    "body": ["{% extends '${1:templates/default}' %}"],
+    "description": "The extends tag can be used to extend a template from another one. Canvas does not support multiple inheritance."
+  },
+  "Loop over each item in a sequence": {
+    "prefix": ["!for", "{% for %}", "for"],
+    "body": ["{% for ${1:item} in ${2:items} %}", "  $0", "{% endfor %}"],
+    "description": "Loop over each item in a sequence."
+  },
+  "Loop over each entry in a collection, sorted by a field": {
+    "prefix": "!for-collections",
+    "body": [
+      "{% for ${1:entry} in collection.entries | sort((a, b) => a.${2:sort_order} <=> b.${2:sort_order}) %}",
+      "  $0",
+      "{% endfor %}"
+    ],
+    "description": "for-collection"
+  },
+  "The form tag generates an HTML form tag, including any required input tags to submit the form": {
+    "prefix": ["!form", "{% form %}", "form"],
+    "body": ["{% form '${1:contact}' %}", "  $0", "{% endform %}"],
+    "description": "The form tag generates a HTML form tag, including any required input tags to submit the form. Requires a form handle, usually found in your dashboard."
+  },
+  "The from tag imports macro names into the current namespace": {
+    "prefix": ["!from", "{% from %}", "from"],
+    "body": ["{% from '${1:forms.html}' import ${2:input} %}"],
+    "description": "The from tag imports macro names into the current namespace."
+  },
+  "The if statement in Canvas is comparable with the if statements of many popular languages": {
     "prefix": ["!if", "{% if %}", "if"],
-    "body": ["{% if ${1:item} == true %}", " $0", "{% endif %}"],
+    "body": ["{% if ${1:item} == true %}", "  $0", "{% endif %}"],
     "description": "The if statement in Canvas is comparable with the if statements of many popular languages."
   },
-  "Loop over each item in a sequence. ": {
-    "prefix": ["!for", "{% for %}", "for"],
-    "body": ["{% for ${1:item} in items %}", "     $0", "{% endfor %}"],
-    "description": "Loop over each item in a sequence. "
-  },
-  "Whether automatic escaping is enabled or not, you can mark a section of a template to be escaped or not by using the autoescape tag": {
-    "prefix": ["!autoescape", "{% autoescape %}", "autoescape"],
-    "body": ["{% autoescape %}", "     $0", "{% endautoescape %}"],
-    "description": "Whether automatic escaping is enabled or not, you can mark a section of a template to be escaped or not by using the autoescape tag"
+  "The import tag imports macro names in a local variable": {
+    "prefix": ["!import", "{% import %}", "import"],
+    "body": ["{% import '${1:forms.html}' as ${2:forms} %}"],
+    "description": "The import tag imports macro names in a local variable."
   },
   "The include statement includes a template and returns the rendered content of that file": {
     "prefix": ["!include", "{% include %}", "include"],
     "body": ["{% include '${1:example}' %}"],
     "description": "The include statement includes a template and returns the rendered content of that file"
   },
-  "Inside code blocks you can also assign values to variables. Assignments use the set tag and can have multiple targets.": {
+  "Macros are comparable with functions in regular programming languages": {
+    "prefix": ["!macro", "{% macro %}", "macro"],
+    "body": [
+      "{% macro ${1:input}(${2:name}, ${3:value}, ${4:type} = 'text', ${5:size} = 20) %}",
+      "  <input type=\"{{ ${4:type} }}\" name=\"{{ ${2:name} }}\" value=\"{{ ${3:value} | e }}\" size=\"{{ ${5:size} }}\" />",
+      "{% endmacro %}"
+    ],
+    "description": "Macros are comparable with functions in regular programming languages. They are useful to reuse template fragments to not repeat yourself."
+  },
+  "Assign values to variables using the set tag": {
     "prefix": ["!set", "{% set %}", "set"],
-    "body": ["{% set ${1:foo} = 'bar' %}"],
+    "body": ["{% set ${1:foo} = '${2:bar}' %}"],
     "description": "Inside code blocks you can also assign values to variables. Assignments use the set tag and can have multiple targets."
+  },
+  "The use tag imports blocks defined in another template for horizontal reuse": {
+    "prefix": ["!use", "{% use %}", "use"],
+    "body": ["{% use '${1:blocks.html}' %}"],
+    "description": "Horizontal reuse is a way to import the blocks defined in another template into the current template, without using inheritance."
+  },
+  "The verbatim tag marks sections as being raw text that should not be parsed": {
+    "prefix": ["!verbatim", "{% verbatim %}", "verbatim"],
+    "body": ["{% verbatim %}", "  $0", "{% endverbatim %}"],
+    "description": "The verbatim tag marks sections as being raw text that should not be parsed."
+  },
+  "The with tag creates a new inner scope. Variables set within this scope are not visible outside of it": {
+    "prefix": ["!with", "{% with %}", "with"],
+    "body": ["{% with { ${1:foo}: ${2:42} } %}", "  $0", "{% endwith %}"],
+    "description": "Use the with tag to create a new inner scope. Variables set within this scope are not visible outside of the scope."
   }
 }

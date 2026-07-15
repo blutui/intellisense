@@ -19,15 +19,32 @@
     "body": ["{{ block('${1:title}') }}"],
     "description": "When a template uses inheritance and you want to print a block multiple times, use the block function."
   },
-  "canopy.blocks renders a block area containing the Canopy Blocks managed in the Canopy editor": {
+  "canopy.blocks renders a block group with its stored order, as managed in the Canopy editor": {
     "prefix": ["canopy.blocks", "canopy"],
     "body": ["{{ canopy.blocks('${1:main}') }}"],
-    "description": "The canopy.blocks function renders a block area containing the Canopy Blocks managed in the Canopy editor."
+    "description": "The canopy.blocks function renders a block group in the order editors have arranged in the Canopy editor."
+  },
+  "canopy.blocks seeding a zone with an explicit list of block templates": {
+    "prefix": "canopy.blocks.seed",
+    "body": ["{{ canopy.blocks('${1:hero}', ['${2:hero}', '${3:features}']) }}"],
+    "description": "Seed a zone with an explicit ordered list of block templates, instead of rendering the group's stored order."
+  },
+  "canopy.blocks with a locked zone, so editors can't add/remove/reorder blocks but can still edit their fields": {
+    "prefix": "canopy.blocks.locked",
+    "body": [
+      "{{ canopy.blocks('${1:hero}', ['${2:hero}'], { locked: true }) }}"
+    ],
+    "description": "A seeded zone whose block structure is locked: editors can still edit each block's fields, but can't add, remove, or reorder blocks."
   },
   "canopy.blocks with a shared area, for content shared across the whole site (e.g. footers)": {
     "prefix": "canopy.blocks.shared",
     "body": ["{{ canopy.blocks('${1:footer}', { shared: true }) }}"],
-    "description": "Render a block area shared across the whole site instead of scoped to the current page."
+    "description": "Render a block group shared across the whole site instead of scoped to the current page."
+  },
+  "canopy.blocks with a limit on the number of blocks the zone accepts": {
+    "prefix": "canopy.blocks.limit",
+    "body": ["{{ canopy.blocks('${1:main}', { limit: ${2:3} }) }}"],
+    "description": "Render a block group capped to a maximum number of blocks. Combine with shared: true if needed."
   },
   "canopy.render renders a Canopy Block template directly, without content from the Canopy editor": {
     "prefix": "canopy.render",

@@ -1139,13 +1139,13 @@
       "begin": "\\{\\{-?",
       "beginCaptures": {
         "0": {
-          "name": "punctuation.section.tag.canvas"
+          "name": "punctuation.definition.tag.begin.canvas"
         }
       },
       "end": "-?}}",
       "endCaptures": {
         "0": {
-          "name": "punctuation.section.tag.canvas"
+          "name": "punctuation.definition.tag.end.canvas"
         }
       },
       "name": "meta.tag.template.value.canvas",
@@ -1304,13 +1304,13 @@
       "begin": "\\{%-?",
       "beginCaptures": {
         "0": {
-          "name": "punctuation.section.tag.canvas"
+          "name": "punctuation.definition.tag.begin.canvas"
         }
       },
       "end": "-?%}",
       "endCaptures": {
         "0": {
-          "name": "punctuation.section.tag.canvas"
+          "name": "punctuation.definition.tag.end.canvas"
         }
       },
       "name": "meta.tag.template.block.canvas",

@@ -1,10 +1,6 @@
-node_modules/**
 .vscode/**
 .github/**
-src/**
-.vscode-test/**
-**/*.ts
-**/*.map
+.gitattributes
 .gitignore
-**/tsconfig.json
-**/*.node
+.editorconfig
+.claude/**
